@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
+import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
 
 
@@ -10,18 +10,22 @@ class ListHouse extends Component {
     super(props);
   };
   render() {
-    const list = this.props.list.map((list) =>
-    <div key = {list.id}>
-      <Card>
+    const list=this.props.list.map((list) =>
+    <div key={list.id}>
+      <Card style={{width:600}}>
         <CardMedia
            overlay={<CardTitle title={list.title} />}
          >
-           <img src={list.photo}  height="600" width="337" />
+           <img src={list.photo}/>
          </CardMedia>
          <CardTitle title={list.tile} />
         <CardText>{list.description}</CardText>
-          <Divider/>
+        <CardActions>
+          <FlatButton label="Prenota" />
+          <FlatButton label="Modifica" />
+          </CardActions>
       </Card>
+      <br/>
     </div>
   );
     return (

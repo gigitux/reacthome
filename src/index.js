@@ -6,6 +6,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import list_house from './reducers/reducers';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
+/*import Header stuff */
+import NavBar from './components/navbar'
+/*import Body stuff */
 import ListHouse from './components/listhouse';
 
 
@@ -15,8 +18,21 @@ const reducers = {
 const reducer = combineReducers(reducers)
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
+/*Header */
+const Header = () => (
+  <MuiThemeProvider>
+    <NavBar />
+  </MuiThemeProvider>
+)
 
+ReactDOM.render(
+  <Provider store={store}>
+    <Header />
+  </Provider>,
+  document.getElementById('header')
+)
 
+/* Body */
 const App = () => (
   <MuiThemeProvider>
     <ListHouse />

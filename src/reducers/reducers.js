@@ -7,16 +7,20 @@ const initialState = {
       id: 1,
       title: "Villa Montereggioni",
       description: "A Monteriggioni, raggiungibile da Siena in 10 minuti di superstrada, si respira davvero un'aria medievale. Infatti, Monteriggioni è uno dei borgHI fortificati più belli d'Italia, ed ogni anno viene visitato da 90.000 persone. ",
-      photo: 'http://vignette2.wikia.nocookie.net/assassinscreed/images/6/65/Villa_Auditore_restaurata.png/revision/latest?cb=20121023063753&path-prefix=it',
+      photo: 'http://www.santulivieri.it/Foto/Dintorni/Luoghi-Culturali/Monteriggioni/monteriggioni-cinta-muraria.jpg',
       category: "Villa"
     },
     {
       id: 2,
       title: "Villa Montereggioni",
       description: "Villa molto figa",
-      photo: 'http://www.villadiamante.it/html/tools/BackgroundSlideshow/images/2.jpg',
-      category: "Villa blabla"
-    },
+      photo: 'https://cdn1.matrimonio.com/emp/videos/7/4/7/16027b_23747-villa-diamante-mgarcia.jpg',
+      category: "Villa blabla",
+      location: {
+        lat: 43.3901353,
+        long: 11.223386300000016
+      }
+    } 
   ]
 };
 
