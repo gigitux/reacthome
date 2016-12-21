@@ -39,7 +39,7 @@ export default class AddButton extends React.Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onClick={this.handleClose}
+        onClick={() => this.refs.AddHouse.handleSubmit(event)}
       />,
     ];
 
@@ -55,7 +55,7 @@ export default class AddButton extends React.Component {
           open={this.state.open}
           onRequestClose={this.handleClose}
         >
-            <AddHouse/>
+            <AddHouse />
         </Dialog>
       </div>
     );

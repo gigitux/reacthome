@@ -16,8 +16,10 @@ constructor(props) {
         category: '',
         id: '',
     }
-   this.handleChangeTitle=this.handleChangeTitle.bind(this)
-   this.handleChangeDescription=this.handleChangeDescription.bind(this)
+   this.handleChangeTitle=this.handleChangeTitle.bind(this);
+   this.handleChangeDescription=this.handleChangeDescription.bind(this);
+   this.handleSubmit=this.handleSubmit.bind(this)
+
   };
 
 /* eventi Handle */
