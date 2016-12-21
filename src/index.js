@@ -10,6 +10,7 @@ import { createStore, combineReducers } from 'redux';
 import NavBar from './components/navbar'
 /*import Body stuff */
 import ListHouse from './components/listhouse';
+import AddButton from './components/addbutton';
 
 
 const reducers = {
@@ -35,7 +36,10 @@ ReactDOM.render(
 /* Body */
 const App = () => (
   <MuiThemeProvider>
+  <div>
     <ListHouse />
+    <AddButton />
+  </div>
   </MuiThemeProvider>
 );
 

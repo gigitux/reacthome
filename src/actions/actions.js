@@ -3,7 +3,7 @@ import * as types from '../actions/actiontypes';
 
 function addHouse(id,title,andress,photo,category,location) {
   return {
-    type: type.ADD_HOUSE
+    type: types.ADD_HOUSE,
     id,
     title,
     andress,
@@ -15,9 +15,7 @@ function addHouse(id,title,andress,photo,category,location) {
 
 function removeHouse(id) {
   return {
-    type: type.REMOVE_HOUSE
+    type: types.REMOVE_HOUSE,
     id
   }
 };
-
-function
