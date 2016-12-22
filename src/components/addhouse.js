@@ -14,12 +14,6 @@ const GettingStartedGoogleMap = withGoogleMap(props => (
     defaultCenter={{ lat: 42.8333, lng: 12.8333 }}
     onClick={props.onMapClick}
   >
-    {props.markers.map(marker => (
-      <Marker
-        {...marker}
-        onRightClick={() => props.onMarkerRightClick(marker)}
-      />
-    ))}
   </GoogleMap>
   ));
 class AddHouse extends React.Component {
@@ -31,11 +25,8 @@ constructor(props) {
         andress:  '',
         category: '',
         id: '',
-        markers: {
-            lat: "22",
-            lng: "",
-          },
-        }
+        lat: '',
+        long: '',
     }
    this.handleChangeTitle=this.handleChangeTitle.bind(this);
    this.handleChangeDescription=this.handleChangeDescription.bind(this);
@@ -58,25 +49,17 @@ handleChangeDescription(event) {
 };
 handleMapLoad(map) {
   this._mapComponent = map;
-  if (map) {
-    console.log(map.getZoom());
-  }
 };
 handleMapClick(event) {
-  const nextMarkers = [
-    ...this.state.markers,
-    {
-      position: event.latLng,
-      defaultAnimation: 2,
-      key: Date.now(), // Add a key property for: http://fb.me/react-warning-keys
-    },
-  ];
+  var lat = event.latLng.lat();
+  var lng = event.latLng.lng();
+  console.log(this.state)
   this.setState({
-    markers: nextMarkers,
+    lat: lat,
+    long: lng,
   });
 };
   render() {
-    console.log(this.state)
     return (
       <div>
           <TextField
@@ -97,11 +80,12 @@ handleMapClick(event) {
         <TextField
           hintText="Categoria"
           errorText="Questo campo è richiesto"
+          value={this.state.lat}
           />
           <TextField
             hintText="Longitutine"
             errorText="Questo campo è richiesto"
-            value={this.state.markers.position.lat}
+            value={this.state.position}
             />
             <GettingStartedGoogleMap
               containerElement={
@@ -112,7 +96,7 @@ handleMapClick(event) {
             }
             onMapLoad={this.handleMapLoad}
             onMapClick={this.handleMapClick}
-            markers={this.state.markers}
+            markers={this.state.lat}
             />
 
       </div>
