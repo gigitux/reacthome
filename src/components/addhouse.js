@@ -10,8 +10,8 @@ import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 const GettingStartedGoogleMap = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapLoad}
-    defaultZoom={3}
-    defaultCenter={{ lat: 42.8333, lng: 12.8333 }}
+    defaultZoom={6}
+    defaultCenter={{ lat: 41.87194, lng: 12.567379999999957 }}
     onClick={props.onMapClick}
   >
   </GoogleMap>
@@ -68,7 +68,6 @@ handleMapClick(event) {
           value={this.state.title}
           onChange={this.handleChangeTitle}
         />
-        <br/>
         <TextField
           hintText="Descrizione "
           errorText="Questo campo è richiesto"
@@ -89,14 +88,13 @@ handleMapClick(event) {
             />
             <GettingStartedGoogleMap
               containerElement={
-            <div style={{ height: `100px` }} />
+            <div style={{ height: `10000px` }} />
             }
             mapElement={
-            <div style={{ height: `100px` }} />
+            <div style={{ height: `300px` }} />
             }
             onMapLoad={this.handleMapLoad}
             onMapClick={this.handleMapClick}
-            markers={this.state.lat}
             />
 
       </div>

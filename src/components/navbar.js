@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+/* import material-ui stuff */
 import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
 
 class NavBar extends Component {
   constructor(props) {
@@ -7,7 +9,9 @@ class NavBar extends Component {
   };
   render() {
     return(
-      <AppBar title="React Home"/>
+      <AppBar title="React Home"
+       iconElementRight={<FlatButton label="Login"/>}
+       />
     )
   };
 }
