@@ -21,12 +21,11 @@ app.use('/api', router);
 // Always return the main index.html, so react-router render the route in the client
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
-  console.log("blabla")
 });
 
 router.use(function(req, res, next) {
     // do logging
-    console.log('Something is happening.');
+    console.log('Qualcosa sta accadendo.');
     next(); // make sure we go to the next routes and don't stop here
 });
 
