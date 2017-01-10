@@ -39,11 +39,12 @@ export default function list_house (state = initialState, action) {
         }
       ]
     };
-    case types.FETCHHOUSE_REQUEST:
-    console.log("okok")
-
+    case types.FETCHHOUSE_SUCCESS:
+    return {
+    id_house: "gg"
+    }
+    break;
     default:
     return state;
-
   }
 }

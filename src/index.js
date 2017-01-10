@@ -1,3 +1,4 @@
+/* Import react stuff */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -12,8 +13,7 @@ import NavBar from './components/navbar'
 /*import Body stuff */
 import ListHouse from './components/listhouse';
 import AddButton from './components/addbutton';
-import { fetchHouse } from './actions/actions';
-fetchHouse()
+
 const reducers = {
   list_house: list_house
 }

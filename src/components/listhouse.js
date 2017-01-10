@@ -1,8 +1,11 @@
+/* Import React Stuff */
 import React, {Component} from 'react';
+/*Import Material Stuff */
 import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+/*Import Redux Stuff */
 import { connect } from 'react-redux';
-
+import * as HouseActions from '../actions/actions';
 
 
 class ListHouse extends Component {
@@ -21,7 +24,7 @@ class ListHouse extends Component {
          <CardTitle title={list.tile} />
         <CardText>{list.description}</CardText>
         <CardActions>
-          <FlatButton label="Prenota" />
+          <FlatButton label="Prenota" onClick= { () => this.props.fetchHouse() } />
           <FlatButton label="Modifica" />
           </CardActions>
       </Card>
@@ -39,5 +42,13 @@ function mapStateToProps(state) {
   return { list: state.list_house.house}
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchHouse: () => {
+      dispatch(HouseActions.fetchHouse())
+    }
+  }
+}
 
-export default connect(mapStateToProps)(ListHouse)
+
+export default connect(mapStateToProps,mapDispatchToProps)(ListHouse)
