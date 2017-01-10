@@ -38,8 +38,9 @@ export default function list_house (state = initialState, action) {
           title: action.title
         }
       ]
-    }
-  ;
+    };
+    case types.FETCHHOUSE_REQUEST:
+    console.log("okok")
 
     default:
     return state;

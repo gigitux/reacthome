@@ -5,19 +5,20 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 /* Import reducers and redux stuff */
 import list_house from './reducers/reducers';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { apiMiddleware } from 'redux-api-middleware';
 /*import Header stuff */
 import NavBar from './components/navbar'
 /*import Body stuff */
 import ListHouse from './components/listhouse';
 import AddButton from './components/addbutton';
-
-
+import { fetchHouse } from './actions/actions';
+fetchHouse()
 const reducers = {
   list_house: list_house
 }
 const reducer = combineReducers(reducers)
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(reducer, applyMiddleware(apiMiddleware), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 /*Header */
 const Header = () => (
