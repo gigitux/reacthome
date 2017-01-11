@@ -43,9 +43,13 @@ handleChangeTitle(event) {
 };
 
 handleChangeDescription(event) {
-  this.setState({title: event.target.value});
+  this.setState({description: event.target.value});
   this.setState({name: ''});
   this.setState({phone: ''})
+};
+
+handleChangeCategory(event) {
+  this.setState({categoria: event.target.value});
 };
 handleMapLoad(map) {
   this._mapComponent = map;
@@ -84,7 +88,7 @@ handleMapClick(event) {
           <TextField
             hintText="Longitutine"
             errorText="Questo campo è richiesto"
-            value={this.state.position}
+            value={this.state.long}
             />
             <GettingStartedGoogleMap
               containerElement={
@@ -105,7 +109,7 @@ handleMapClick(event) {
 function mapDispatchToProps(dispatch) {
   return {
     addhouse: (id,title,andress,photo,category,location) => {
-      dispatch(Actions.addHouse(id,title,andress,photo,category,location))
+      dispatch(Actions.postHouse(id,title,andress,photo,category,location))
     },
   }
 }

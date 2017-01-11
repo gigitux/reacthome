@@ -36,7 +36,6 @@ router.route('/house')
 
 .post(function(req, res) {
   console.log("cistodentro")
-
     var home = new Home();
     home.title = req.body.title;
     home.save(function(err) {

@@ -5,7 +5,7 @@ import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Car
 import FlatButton from 'material-ui/FlatButton';
 /*Import Redux Stuff */
 import { connect } from 'react-redux';
-import * as HouseActions from '../actions/actions';
+import * as Actions from '../actions/actions';
 
 
 class ListHouse extends Component {
@@ -27,7 +27,7 @@ class ListHouse extends Component {
          <CardTitle title={list.tile} />
         <CardText>{list.description}</CardText>
         <CardActions>
-          <FlatButton label="Prenota" onClick= { () => this.props.fetchHouse() } />
+          <FlatButton label="Prenota" onClick= { () => this.props.postHouse() } />
           <FlatButton label="Modifica" />
           </CardActions>
       </Card>
@@ -48,7 +48,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     fetchHouse: () => {
-      dispatch(HouseActions.fetchHouse())
+      dispatch(Actions.fetchHouse())
     }
   }
 }
