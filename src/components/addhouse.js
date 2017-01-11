@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as Actions from '../actions/actions';
 /*material-ui stuff */
 import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 /* google-maps stuff */
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 
@@ -36,6 +37,15 @@ constructor(props) {
   };
 
 /* eventi Handle */
+handleSubmit (event) {
+
+  const title = this.state.tile;
+  const description = this.state.description;
+    this.props.postHouse(title,description)
+     event.preventDefault()
+
+}
+
 handleChangeTitle(event) {
   this.setState({title: event.target.value});
   this.setState({name: ''});
@@ -90,6 +100,12 @@ handleMapClick(event) {
             errorText="Questo campo è richiesto"
             value={this.state.long}
             />
+            <FlatButton
+              label="Invia"
+              primary={true}
+              keyboardFocused={true}
+              onClick={() => this.handleSubmit()}
+            />
             <GettingStartedGoogleMap
               containerElement={
             <div style={{ height: `10000px` }} />
@@ -108,7 +124,7 @@ handleMapClick(event) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addhouse: (id,title,andress,photo,category,location) => {
+    postHouse: (id,title,andress,photo,category,location) => {
       dispatch(Actions.postHouse(id,title,andress,photo,category,location))
     },
   }

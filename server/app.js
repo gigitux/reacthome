@@ -38,6 +38,7 @@ router.route('/house')
   console.log("cistodentro")
     var home = new Home();
     home.title = req.body.title;
+    home.id = req.body.id
     home.save(function(err) {
         if (err)
             res.send(err);
