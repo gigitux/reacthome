@@ -40,8 +40,10 @@ export default function list_house (state = initialState, action) {
       ]
     };
     case types.FETCHHOUSE_SUCCESS:
+    console.log("Sto dentro")
+    console.log(action)
     return {
-    id_house: "gg"
+      house: action.payload
     }
     break;
     default:

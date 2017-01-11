@@ -4,51 +4,74 @@ import fetch from 'isomorphic-fetch';
 
 
 
-export function addHouse(id,title,andress,photo,category,location) {
-  return {
-    type: types.ADD_HOUSE,
-    id,
-    title,
-    andress,
-    photo,
-    category,
-    location
-  }
+export function addHouse(id, title, andress, photo, category, location) {
+    return {
+        type: types.ADD_HOUSE,
+        id,
+        title,
+        andress,
+        photo,
+        category,
+        location
+    }
 };
 
 export function removeHouse(id) {
-  return {
-    type: types.REMOVE_HOUSE,
-    id
-  }
+    return {
+        type: types.REMOVE_HOUSE,
+        id
+    }
 };
+
+// export function prova1() {
+//       return fetch ("http://localhost:9000/api/house")
+//       .then(req => req.json())
+//     }
+//
+//     return {
+//       [CALL_API]: {
+//         types: [
+//           {
+//             type: 'REQUEST',
+//             payload: (action, state) => ({ action: state })
+//           },
+//           {
+//             type: 'SUCCESS',
+//               payload:  (action, state, response) => {
+//                  return response
+//                 }
+//            },
+//           'FAILURE'
+//         ]
+//       }
+//     }
+// }
+
+// export function fetchHouse() {
+//   return {
+//     [CALL_API]: {
+//       endpoint: `http://localhost:9000/api/house`,
+//       method: 'GET',
+//       types: [types.FETCHHOUSE_REQUEST, types.FETCHHOUSE_SUCCESS, types.FETCHHOUSE_FAILURE]
+//     }
+//   }
+// }
 
 export function fetchHouse() {
   return {
-  type: types.FETCHHOUSE_SUCCESS
+[CALL_API]: {
+  endpoint: 'http://localhost:9000/api/house',
+  method: 'GET',
+  types: [
+    types.FETCHHOUSE_REQUEST,
+    {
+      type: types.FETCHHOUSE_SUCCESS,
+      payload: (action, state, res) => {
+          return res.json();
+      }
+    },
+    'FAILURE'
+  ]
+  }
+ }
 }
-  return fetch ("http://localhost:9000/api/house").then(req => req.json());
-  console.log(req.json())
-}
-
-  // return {
-  //   [CALL_API]: {
-  //     endpoint: 'http://localhost:9000/api/house',
-  //     method: 'GET',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     types: [
-  //       types.FETCHHOUSE_REQUEST,
-  //       {
-  //         type: 'REQUEST',
-  //         payload: (action, state, res) => {
-  //           const contentType = res.headers.get('Content-Type');
-  //           if (contentType && ~contentType.indexOf('json')) {
-  //             // Just making sure res.json() does not raise an error
-  //             return res.json();
-  //           }
-  //         }
-  //       },
-  //       types.FETCHHOUSE_FAILURE
-  //     ]
-  //   }
-  // }

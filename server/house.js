@@ -2,7 +2,7 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var HomeSchema   = new Schema({
-    name: String,
+    title: String,
     description: String,
     andress: String,
     photo: String

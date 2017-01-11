@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
+var bodyParser = require('body-parser');
 var router = express.Router();
 var Home = require('./house')
 var mongoose = require('mongoose');
@@ -15,6 +16,8 @@ const app = express();
 mongoose.connect('mongodb://localhost:27017/myproject');
 
 // Serve static assets
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 app.use('/api', router);
 
@@ -29,26 +32,20 @@ router.use(function(req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
 });
 
-
-router.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });
-});
-
 router.route('/house')
 
 .post(function(req, res) {
+  console.log("cistodentro")
 
     var home = new Home();
-    home.name = "fff";
-
+    home.title = req.body.title;
     home.save(function(err) {
         if (err)
             res.send(err);
-
         res.json({ message: 'Casa creata' });
     });
-
 })
+
 .get(function(req, res) {
     Home.find(function(err, house) {
         if (err)

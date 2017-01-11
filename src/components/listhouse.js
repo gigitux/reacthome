@@ -12,6 +12,9 @@ class ListHouse extends Component {
   constructor(props){
     super(props);
   };
+  componentWillMount() {
+    this.props.fetchHouse()
+  }
   render() {
     const list=this.props.list.map((list) =>
     <div key={list.id}>
