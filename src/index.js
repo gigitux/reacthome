@@ -8,11 +8,13 @@ import list_house from './reducers/reducers';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { apiMiddleware } from 'redux-api-middleware';
+import { Router, Route, Link, browserHistory } from 'react-router'
 /*import Header stuff */
 import NavBar from './components/navbar'
 /*import Body stuff */
 import ListHouse from './components/listhouse';
 import AddButton from './components/addbutton';
+import House from './components/house';
 
 const reducers = {
   list_house: list_house
@@ -46,7 +48,10 @@ const App = () => (
 
 ReactDOM.render(
   <Provider store={store}>
-  <App/>
+  <Router>
+  <Route path="/" component={App} />
+  </Route>
+  </Router>
   </Provider>,
   document.getElementById('root')
 );

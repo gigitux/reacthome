@@ -24,10 +24,10 @@ class ListHouse extends Component {
          >
            <img src={list.photo}/>
          </CardMedia>
-         <CardTitle title={list.tile} />
+         <CardTitle title={list.title} />
         <CardText>{list.description}</CardText>
         <CardActions>
-          <FlatButton label="Prenota" onClick= { () => this.props.postHouse() } />
+          <FlatButton label="Prenota" onClick= { () => this.props.fetchoneHouse(list.id) } />
           <FlatButton label="Modifica" />
           </CardActions>
       </Card>
@@ -49,6 +49,10 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchHouse: () => {
       dispatch(Actions.fetchHouse())
+    },
+    fetchoneHouse: (id) => {
+    console.log(id)
+      dispatch(Actions.fetchoneHouse(id))
     }
   }
 }

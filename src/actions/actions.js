@@ -65,3 +65,22 @@ export function postHouse(id,title,andress,photo,category,location) {
         }
     }
 }
+
+export function fetchoneHouse(id) {
+    return {
+        [CALL_API]: {
+            endpoint: 'http://localhost:9000/api/house/'+ id,
+            method: 'GET',
+            types: [
+                types.FETCHONEHOUSE_REQUEST,
+                {
+                    type: types.FETCHONEHOUSE_REQUEST,
+                    payload: (action, state, res) => {
+                        return res.json();
+                    }
+                },
+                'FAILURE'
+            ]
+        }
+    }
+}

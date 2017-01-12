@@ -38,7 +38,7 @@ router.route('/house')
   console.log("cistodentro")
     var home = new Home();
     home.title = req.body.title;
-    home.id = req.body.id
+    home.id = req.body.id;
     home.save(function(err) {
         if (err)
             res.send(err);
@@ -55,9 +55,9 @@ router.route('/house')
     });
 });
 
-router.route('/house/:home_id')
+router.route('/house/:id')
 .get(function(req, res) {
-    Home.findById(req.params.home_id, function(err, home) {
+    Home.find({id: req.params.id}, function(err, home) {
         if (err)
             res.send(err);
         res.json(home);

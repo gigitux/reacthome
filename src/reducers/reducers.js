@@ -44,10 +44,14 @@ export default function list_house (state = initialState, action) {
       house: action.payload
     };
     case types.POSTHOUSE_SUCCESS:
-    console.log("gggg")
     return {
       ...state
-    }
+    };
+    case types.FETCHONEHOUSE_REQUEST:
+    return {
+      ...state,
+      fetchHouse: action.payload
+    };
     break;
     default:
     return state;
