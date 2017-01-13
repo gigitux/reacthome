@@ -8,19 +8,31 @@ import list_house from './reducers/reducers';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { apiMiddleware } from 'redux-api-middleware';
-import { Router, Route, Link, browserHistory } from 'react-router'
+import { Router, Route, browserHistory } from 'react-router';
+
 /*import Header stuff */
 import NavBar from './components/navbar'
 /*import Body stuff */
 import ListHouse from './components/listhouse';
 import AddButton from './components/addbutton';
-import House from './components/house';
+import Error404 from './components/error404';
 
 const reducers = {
   list_house: list_house
 }
 const reducer = combineReducers(reducers)
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(apiMiddleware),);
+
+const Routes = (props) => (
+  console.log("ci sto dentro"),
+  <MuiThemeProvider>
+  <Router { ...props}>
+    <Route path="/" component={App} />
+    <Route path="/about" component={AddButton} />
+    <Route path="*" component={Error404} />
+  </Router>
+  </MuiThemeProvider>
+);
 
 /*Header */
 const Header = () => (
@@ -38,20 +50,16 @@ ReactDOM.render(
 
 /* Body */
 const App = () => (
-  <MuiThemeProvider>
   <div>
     <ListHouse />
     <AddButton />
   </div>
-  </MuiThemeProvider>
 );
+
 
 ReactDOM.render(
   <Provider store={store}>
-  <Router>
-  <Route path="/" component={App} />
-  </Route>
-  </Router>
+  <Routes history={browserHistory} />
   </Provider>,
   document.getElementById('root')
 );

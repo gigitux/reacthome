@@ -36,8 +36,8 @@ class House extends Component {
   );
     return (
   <div>
-  sdadsadsadd
-  </div>
+gdgfgf
+</div>
   )};
 }
 
