@@ -12,28 +12,7 @@ class House extends Component {
   constructor(props){
     super(props);
   };
-  componentWillMount() {
-    this.props.fetchHouse()
-  }
   render() {
-    const list=this.props.list.map((list) =>
-    <div key={list.id}>
-      <Card style={{width:600}}>
-        <CardMedia
-           overlay={<CardTitle title={list.title} />}
-         >
-           <img src={list.photo}/>
-         </CardMedia>
-         <CardTitle title={list.title} />
-        <CardText>{list.description}</CardText>
-        <CardActions>
-          <FlatButton label="Prenota" onClick= { () => this.props.fetchoneHouse(list.id) } />
-          <FlatButton label="Modifica" />
-          </CardActions>
-      </Card>
-      <br/>
-    </div>
-  );
     return (
   <div>
 gdgfgf

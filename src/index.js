@@ -24,7 +24,6 @@ const reducer = combineReducers(reducers)
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(apiMiddleware),);
 
 const Routes = (props) => (
-  console.log("ci sto dentro"),
   <MuiThemeProvider>
   <Router { ...props}>
     <Route path="/" component={App} />
