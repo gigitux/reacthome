@@ -12,29 +12,27 @@ class House extends Component {
   constructor(props){
     super(props);
   };
+  componentWillMount() {
+    this.props.fetchoneHouse(this.props.params.id)
+  }
   render() {
     return (
   <div>
-gdgfgf
+  {this.props.house ? this.props.house[0].title : ""}
 </div>
   )};
 }
 
 function mapStateToProps(state) {
-  return { list: state.list_house.house}
+  return { house: state.list_house.fetchHouse}
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchHouse: () => {
-      dispatch(Actions.fetchHouse())
-    },
     fetchoneHouse: (id) => {
-    console.log(id)
       dispatch(Actions.fetchoneHouse(id))
     }
   }
 }
 
-
-export default connect(mapStateToProps,mapDispatchToProps)(House)
+export default connect(mapStateToProps, mapDispatchToProps)(House)

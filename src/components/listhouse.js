@@ -15,12 +15,14 @@ class ListHouse extends Component {
   componentWillMount() {
     this.props.fetchHouse()
   }
+
   render() {
+    console.log(this.props)
     const list=this.props.list.map((list) =>
     <div key={list.id}>
       <Card style={{width:600}}>
         <CardMedia
-           overlay={<CardTitle title={list.title} />}
+           overlay={<CardTitle title={list.title} onClick={ () => location.href=''} style={{cursor:'pointer'}} />}
          >
            <img src={list.photo}/>
          </CardMedia>
@@ -50,10 +52,6 @@ function mapDispatchToProps(dispatch) {
     fetchHouse: () => {
       dispatch(Actions.fetchHouse())
     },
-    fetchoneHouse: (id) => {
-    console.log(id)
-      dispatch(Actions.fetchoneHouse(id))
-    }
   }
 }
 
