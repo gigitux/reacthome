@@ -15,6 +15,7 @@ const app = express();
 // Connection with mongodb
 mongoose.connect('mongodb://localhost:27017/myproject');
 
+
 // Serve static assets
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -38,7 +39,6 @@ router.route('/house')
   console.log("cistodentro")
     var home = new Home();
     home.title = req.body.title;
-    home.id = req.body.id;
     home.save(function(err) {
         if (err)
             res.send(err);
@@ -62,8 +62,20 @@ router.route('/house/:id')
             res.send(err);
         res.json(home);
     });
-});
+})
+.put(function(req, res) {
+      Home.findOne({id: req.params.id}, function(err, home) {
+          if (err)
+          res.send(err);
 
+          home.title = req.body.title;
 
+          home.save(function(err) {
+              if (err)
+                  res.send(err);
+              res.json({ message: 'Home updated!' });
+          });
+      });
+  });
 
 module.exports = app;

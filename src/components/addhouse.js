@@ -39,28 +39,24 @@ constructor(props) {
 /* eventi Handle */
 handleSubmit (event) {
 
-  const title = this.state.tile;
+  const title = this.state.title;
   const description = this.state.description;
     this.props.postHouse(title,description)
-     event.preventDefault()
-
 }
 
 handleChangeTitle(event) {
   this.setState({title: event.target.value});
-  this.setState({name: ''});
-  this.setState({phone: ''})
 };
 
 handleChangeDescription(event) {
   this.setState({description: event.target.value});
-  this.setState({name: ''});
-  this.setState({phone: ''})
 };
 
 handleChangeCategory(event) {
   this.setState({categoria: event.target.value});
 };
+
+
 handleMapLoad(map) {
   this._mapComponent = map;
 };

@@ -6,7 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 /*Import Redux Stuff */
 import { connect } from 'react-redux';
 import * as Actions from '../actions/actions';
-
+import EditHouse from '../components/listhouse';
 
 class ListHouse extends Component {
   constructor(props){
@@ -22,7 +22,7 @@ class ListHouse extends Component {
     <div key={list.id}>
       <Card style={{width:600}}>
         <CardMedia
-           overlay={<CardTitle title={list.title} onClick={ () => location.href=''} style={{cursor:'pointer'}} />}
+           overlay={<CardTitle title={list.title} onClick={ () => location.href='house/'+list.id} style={{cursor:'pointer'}} />}
          >
            <img src={list.photo}/>
          </CardMedia>
@@ -30,7 +30,7 @@ class ListHouse extends Component {
         <CardText>{list.description}</CardText>
         <CardActions>
           <FlatButton label="Prenota" onClick= { () => this.props.fetchoneHouse(list.id) } />
-          <FlatButton label="Modifica" />
+          <FlatButton label="Modifica" onClick= { () => console.log("bla")} />
           </CardActions>
       </Card>
       <br/>
@@ -39,7 +39,8 @@ class ListHouse extends Component {
     return (
   <div>
   {list}
-  </div>
+</div>
+
   )};
 }
 
