@@ -76,6 +76,15 @@ router.route('/house/:id')
               res.json({ message: 'Home updated!' });
           });
       });
-  });
+  })
+.delete(function(req, res) {
+          Home.remove({
+              id: req.params.id
+          }, function(err, bear) {
+              if (err)
+                  res.send(err);
 
+              res.json({ message: 'Successfully deleted' });
+          });
+      });
 module.exports = app;

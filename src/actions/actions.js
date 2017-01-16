@@ -84,3 +84,22 @@ export function fetchoneHouse(id) {
         }
     }
 }
+
+export function deletehouse(id) {
+    return {
+        [CALL_API]: {
+            endpoint: 'http://localhost:9000/api/house/'+ id,
+            method: 'DELETE',
+            types: [
+                types.DELETEHOUSE_REQUEST,
+                {
+                    type: types.DELETEHOUSE_REQUEST,
+                    payload: (action, state, res) => {
+                        return res.json();
+                    }
+                },
+                'FAILURE'
+            ]
+        }
+    }
+}

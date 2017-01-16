@@ -6,7 +6,10 @@ autoIncrement.initialize(mongoose.createConnection("mongodb://localhost:27017/my
 
 
 var HomeSchema   = new Schema({
-    title: String,
+    title:  {
+      type: String,
+      required: true
+    },
     id: Number,
     description: String,
     andress: String,

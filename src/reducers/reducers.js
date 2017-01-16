@@ -5,7 +5,7 @@ const initialState = {
   house: [
     {
       id: 1,
-      title: "Villa Montereggioni",
+      title: "gg Montereggioni",
       description: "A Monteriggioni, raggiungibile da Siena in 10 minuti di superstrada, si respira davvero un'aria medievale. Infatti, Monteriggioni è uno dei borgHI fortificati più belli d'Italia, ed ogni anno viene visitato da 90.000 persone. ",
       photo: 'http://www.santulivieri.it/Foto/Dintorni/Luoghi-Culturali/Monteriggioni/monteriggioni-cinta-muraria.jpg',
       category: "Villa"

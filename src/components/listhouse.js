@@ -29,8 +29,10 @@ class ListHouse extends Component {
          <CardTitle title={list.title} />
         <CardText>{list.description}</CardText>
         <CardActions>
-          <FlatButton label="Prenota" onClick= { () => this.props.fetchoneHouse(list.id) } />
+          <FlatButton label="Prenota" onClick= { () => console.log("gg") } />
           <FlatButton label="Modifica" onClick= { () => console.log("bla")} />
+          <FlatButton label="Elimina" onClick= { () => {this.props.deletehouse(list.id); location.reload()} } />
+
           </CardActions>
       </Card>
       <br/>
@@ -39,10 +41,10 @@ class ListHouse extends Component {
     return (
   <div>
   {list}
-</div>
-
-  )};
-}
+  </div>
+  )
+ }
+};
 
 function mapStateToProps(state) {
   return { list: state.list_house.house}
@@ -53,6 +55,9 @@ function mapDispatchToProps(dispatch) {
     fetchHouse: () => {
       dispatch(Actions.fetchHouse())
     },
+    deletehouse: (id) => {
+      dispatch(Actions.deletehouse(id))
+    }
   }
 }
 
