@@ -40,8 +40,9 @@ router.route('/house')
     var home = new Home();
     home.title = req.body.title;
     home.save(function(err) {
-        if (err)
-            res.send(err);
+        if (err){
+          return res.json({status: 500, error: err});
+        }
         res.json({ message: 'Casa creata' });
     });
 })
@@ -73,7 +74,7 @@ router.route('/house/:id')
           home.save(function(err) {
               if (err)
                   res.send(err);
-              res.json({ message: 'Home updated!' });
+              res.json({ message: 'Casa aggiornata!' });
           });
       });
   })
@@ -84,7 +85,7 @@ router.route('/house/:id')
               if (err)
                   res.send(err);
 
-              res.json({ message: 'Successfully deleted' });
+              res.json({ message: 'Casa eliminata' });
           });
       });
 module.exports = app;
