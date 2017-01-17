@@ -100,7 +100,7 @@ handleMapClick(event) {
               label="Invia"
               primary={true}
               keyboardFocused={true}
-              onClick={() => this.handleSubmit()}
+              onClick={() => { this.handleSubmit(); location.reload() }}
             />
             <GettingStartedGoogleMap
               containerElement={
