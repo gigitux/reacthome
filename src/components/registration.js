@@ -13,20 +13,24 @@ export class Registration extends React.Component {
     super(props);
     this.state = {
         name: '',
+        email: '',
         surname: '',
+        email: '',
         password: '',
     }
-    this.handleChangeName=this.handleChangeName.bind(this);
-    this.handleChangeSurname=this.handleChangeSurname.bind(this);
-    this.handleChangePassword=this.handleChangePassword.bind(this);
+    this.handleChangeName = this.handleChangeName.bind(this);
+    this.handleChangeSurname = this.handleChangeSurname.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.handleChangePassword = this.handleChangePassword.bind(this);
 }
 
 handleSubmit (event) {
   const password_crypted = CryptoJS.SHA256(this.state.password)
   const name = this.state.name;
+  const email = this.state.email;;
   const surname = this.state.surname;
   const password = password_crypted.toString(CryptoJS.enc.Base64);
-  this.props.registration(name,surname,password)
+  this.props.registration(name,surname,email,password)
 
 }
 
@@ -36,6 +40,10 @@ handleChangeName(event) {
 
 handleChangeSurname(event) {
   this.setState({surname: event.target.value});
+};
+
+handleChangeEmail(event) {
+  this.setState({email: event.target.value});
 };
 
 handleChangePassword(event){
@@ -65,6 +73,14 @@ handleChangePassword(event){
         onChange={this.handleChangeSurname}
         />
       <br/>
+      <TextField
+        hintText="Email"
+        errorText="Questo campo è richiesto"
+        type="email"
+        value={this.state.email}
+        onChange={this.handleChangeEmail}
+        />
+      <br/>
         <TextField
         hintText="Password"
         errorText="Questo campo è richiesto"
@@ -72,6 +88,7 @@ handleChangePassword(event){
         value={this.state.password}
         onChange={this.handleChangePassword}
         />
+      <br/>
         <FlatButton
           label="Invia"
           primary={true}
@@ -86,8 +103,8 @@ handleChangePassword(event){
 
 function mapDispatchToProps(dispatch) {
   return {
-    registration: (name,surname,password) => {
-      dispatch(Actions.registration(name,surname,password))
+    registration: (name,surname,email,password) => {
+      dispatch(Actions.registration(name,surname,email,password))
     }
   }
 }

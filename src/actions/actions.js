@@ -127,7 +127,7 @@ export function editHouse(id,title,description) {
     }
 }
 
-export function registration(name,surname,password) {
+export function registration(name,surname,email,password) {
   console.log("ggg")
     return {
         [CALL_API]: {
@@ -137,12 +137,38 @@ export function registration(name,surname,password) {
             body: JSON.stringify({
                 name: name,
                 surname: surname,
+                email : email,
                 password: password
             }),
             types: [
                 types.REGISTRATION,
                 {
                     type: types.REGISTRATION,
+                    payload: (action, state, res) => {
+                        return res.json();
+                    }
+                },
+                'FAILURE'
+            ]
+        }
+    }
+}
+
+export function login(email,password) {
+  console.log("ggg")
+    return {
+        [CALL_API]: {
+            endpoint: 'http://localhost:9000/api/login/',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                email : email,
+                password: password
+            }),
+            types: [
+                types.LOGIN,
+                {
+                    type: types.LOGIN,
                     payload: (action, state, res) => {
                         return res.json();
                     }

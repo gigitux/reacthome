@@ -6,67 +6,61 @@ import AddHouse from '../components/addhouse';
 import { connect } from 'react-redux';
 import * as Actions from '../actions/actions';
 import TextField from 'material-ui/TextField';
+import CryptoJS from 'crypto-js';
 
-export class EditHouse extends React.Component {
+export class Login extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-        name: '',
-        surname: '',
+        email: '',
         password: '',
     }
-    this.handleChangeName=this.handleChangeName.bind(this);
-    this.handleChangeSurname=this.handleChangeSurname.bind(this);
-    this.handleChangePassword=this.handleChangePassword.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.handleChangePassword = this.handleChangePassword.bind(this);
 }
 
 handleSubmit (event) {
-  const name = this.state.name;
-  const surname = this.state.surname;
-  const password = this.state.password;
-  this.props.editHouse(name,surname,password);
-  console.log("blabla")
+  const password_crypted = CryptoJS.SHA256(this.state.password)
+  const email = this.state.email;;
+  const password = password_crypted.toString(CryptoJS.enc.Base64);
+  this.props.login(email,password)
+
 }
 
-handleChangeName(event) {
-  this.setState({name: event.target.value});
+
+handleChangeEmail(event) {
+  this.setState({email: event.target.value});
 };
 
-handleChangeDescription(event) {
-  this.setState({surname: event.target.value});
-};
-
+handleChangePassword(event){
+  this.setState({password: event.target.value})
+}
 
   render() {
-    console.log(this.state.id)
     return (
       <div>
         <Dialog
-          title="Registrati"
+          title="Login"
           modal={false}
           open={true}
           onRequestClose={this.handleClose}
         >
-        <TextField
-        hintText="Nome"
+    <TextField
+        hintText="Email"
         errorText="Questo campo è richiesto"
-        value={this.state.name}
-        onChange={this.handleChangeName}
-        />
-      <br/>
-        <TextField
-        hintText="Cognome"
-        errorText="Questo campo è richiesto"
-        value={this.state.lastname}
-        onChange={this.handleChangeLastname}
+        type="email"
+        value={this.state.email}
+        onChange={this.handleChangeEmail}
         />
       <br/>
         <TextField
         hintText="Password"
         errorText="Questo campo è richiesto"
+        type="password"
         value={this.state.password}
         onChange={this.handleChangePassword}
         />
+      <br/>
         <FlatButton
           label="Invia"
           primary={true}
@@ -79,16 +73,12 @@ handleChangeDescription(event) {
   }
 
 
-function mapStateToProps(state) {
-  return { house: state.list_house.fetchHouse}
-}
-
 function mapDispatchToProps(dispatch) {
   return {
-    editHouse: (id,title,description) => {
-      dispatch(Actions.editHouse(id,title,description))
+    login: (email,password) => {
+      dispatch(Actions.registration(email,password))
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditHouse)
+export default connect(null, mapDispatchToProps)(Login)
