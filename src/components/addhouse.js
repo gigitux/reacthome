@@ -38,7 +38,7 @@ constructor(props) {
 
 /* eventi Handle */
 handleSubmit (event) {
-
+  console.log(this.state.description)
   const title = this.state.title;
   const description = this.state.description;
     this.props.postHouse(title,description)
@@ -50,6 +50,7 @@ handleChangeTitle(event) {
 
 handleChangeDescription(event) {
   this.setState({description: event.target.value});
+  console.log(this.state.title, this.state.description)
 };
 
 handleChangeCategory(event) {
@@ -120,8 +121,8 @@ handleMapClick(event) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    postHouse: (id,title,andress,photo,category,location) => {
-      dispatch(Actions.postHouse(id,title,andress,photo,category,location))
+    postHouse: (title,description) => {
+      dispatch(Actions.postHouse(title,description))
     },
   }
 }

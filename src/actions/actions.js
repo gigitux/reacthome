@@ -40,17 +40,15 @@ export function fetchHouse() {
     }
 }
 
-export function postHouse(id,title,andress,photo,category,location) {
+export function postHouse(title,description) {
     return {
         [CALL_API]: {
             endpoint: 'http://localhost:9000/api/house',
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify({
-                id: id,
                 title: title,
-                andress: andress,
-                photo: photo
+                description: description,
             }),
             types: [
                 types.POSTHOUSE_SUCCESS,
@@ -74,7 +72,7 @@ export function fetchoneHouse(id) {
             types: [
                 types.FETCHONEHOUSE_REQUEST,
                 {
-                    type: types.FETCHONEHOUSE_REQUEST,
+                    type: types.FETCHONEHOUSE_SUCCESS,
                     payload: (action, state, res) => {
                         return res.json();
                     }
@@ -94,6 +92,57 @@ export function deletehouse(id) {
                 types.DELETEHOUSE_REQUEST,
                 {
                     type: types.DELETEHOUSE_REQUEST,
+                    payload: (action, state, res) => {
+                        return res.json();
+                    }
+                },
+                'FAILURE'
+            ]
+        }
+    }
+}
+
+export function editHouse(id,title,description) {
+  console.log("ggg")
+    return {
+        [CALL_API]: {
+            endpoint: 'http://localhost:9000/api/house/'+ id,
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                title: title,
+                description: description
+            }),
+            types: [
+                types.EDITHOUSE_SUCCESS,
+                {
+                    type: types.EDITHOUSE_SUCCESS,
+                    payload: (action, state, res) => {
+                        return res.json();
+                    }
+                },
+                'FAILURE'
+            ]
+        }
+    }
+}
+
+export function registration(name,surname,password) {
+  console.log("ggg")
+    return {
+        [CALL_API]: {
+            endpoint: 'http://localhost:9000/api/user/',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                name: name,
+                surname: surname,
+                password: password
+            }),
+            types: [
+                types.REGISTRATION,
+                {
+                    type: types.REGISTRATION,
                     payload: (action, state, res) => {
                         return res.json();
                     }

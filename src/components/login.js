@@ -11,32 +11,29 @@ export class EditHouse extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-        title: this.props.title,
-        description: this.props.description,
-        andress:  '',
-        category: '',
-        id: this.props.id_house,
-        lat: '',
-        long: '',
+        name: '',
+        surname: '',
+        password: '',
     }
-    this.handleChangeTitle=this.handleChangeTitle.bind(this);
-    this.handleChangeDescription=this.handleChangeDescription.bind(this);
+    this.handleChangeName=this.handleChangeName.bind(this);
+    this.handleChangeSurname=this.handleChangeSurname.bind(this);
+    this.handleChangePassword=this.handleChangePassword.bind(this);
 }
 
 handleSubmit (event) {
-  const id = this.state.id;
-  const title = this.state.title;
-  const description = this.state.description;
-  this.props.editHouse(id,title,description);
+  const name = this.state.name;
+  const surname = this.state.surname;
+  const password = this.state.password;
+  this.props.editHouse(name,surname,password);
   console.log("blabla")
 }
 
-handleChangeTitle(event) {
-  this.setState({title: event.target.value});
+handleChangeName(event) {
+  this.setState({name: event.target.value});
 };
 
 handleChangeDescription(event) {
-  this.setState({description: event.target.value});
+  this.setState({surname: event.target.value});
 };
 
 
@@ -45,7 +42,7 @@ handleChangeDescription(event) {
     return (
       <div>
         <Dialog
-          title="Modifica Casa"
+          title="Registrati"
           modal={false}
           open={true}
           onRequestClose={this.handleClose}
@@ -53,15 +50,22 @@ handleChangeDescription(event) {
         <TextField
         hintText="Nome"
         errorText="Questo campo è richiesto"
-        value={this.state.title}
-        onChange={this.handleChangeTitle}
+        value={this.state.name}
+        onChange={this.handleChangeName}
         />
       <br/>
         <TextField
-        hintText="Descrizione"
+        hintText="Cognome"
         errorText="Questo campo è richiesto"
-        value={this.state.description}
-        onChange={this.handleChangeDescription}
+        value={this.state.lastname}
+        onChange={this.handleChangeLastname}
+        />
+      <br/>
+        <TextField
+        hintText="Password"
+        errorText="Questo campo è richiesto"
+        value={this.state.password}
+        onChange={this.handleChangePassword}
         />
         <FlatButton
           label="Invia"

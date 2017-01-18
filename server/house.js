@@ -10,8 +10,8 @@ var HomeSchema   = new Schema({
       type: String,
       required: true
     },
-    id: Number,
     description: String,
+    id: Number,
     andress: String,
     photo: String
 },

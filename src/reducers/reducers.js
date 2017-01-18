@@ -47,11 +47,12 @@ export default function list_house (state = initialState, action) {
     return {
       ...state
     };
-    case types.FETCHONEHOUSE_REQUEST:
+    case types.FETCHONEHOUSE_SUCCESS:
     return {
       ...state,
       fetchHouse: action.payload
     };
+
     break;
     default:
     return state;

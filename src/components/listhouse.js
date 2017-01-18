@@ -6,18 +6,36 @@ import FlatButton from 'material-ui/FlatButton';
 /*Import Redux Stuff */
 import { connect } from 'react-redux';
 import * as Actions from '../actions/actions';
-import EditHouse from '../components/listhouse';
+import EditHouse from '../components/edithouse';
+import Error404 from '../components/error404';
+import Delete from 'material-ui/svg-icons/action/delete';
+import Edit from 'material-ui/svg-icons/editor/mode-edit';
+import Credit_Card from 'material-ui/svg-icons/action/credit-card';
 
 class ListHouse extends Component {
   constructor(props){
     super(props);
+    this.state = {
+      showComponent: false,
+      id_house : ""
+    };
+
+    this.showComponent = this.showComponent.bind(this);
   };
   componentWillMount() {
     this.props.fetchHouse()
   }
 
+  showComponent(id,title,description) {
+    this.setState({
+      showComponent: true,
+      id_house: id,
+      title: title,
+      description: description
+    });
+  }
+
   render() {
-    console.log(this.props)
     const list=this.props.list.map((list) =>
     <div key={list.id}>
       <Card style={{width:600}}>
@@ -29,9 +47,9 @@ class ListHouse extends Component {
          <CardTitle title={list.title} />
         <CardText>{list.description}</CardText>
         <CardActions>
-          <FlatButton label="Prenota" onClick= { () => console.log("gg") } />
-          <FlatButton label="Modifica" onClick= { () => console.log("bla")} />
-          <FlatButton label="Elimina" onClick= { () => {this.props.deletehouse(list.id); location.reload()} } />
+          <FlatButton label="Prenota" icon={<Credit_Card />}  onClick= { () => console.log("gg") } />
+          <FlatButton label="Modifica" icon={<Edit />}  onClick= { () => {this.showComponent(list.id, list.title, list.description)}} />
+          <FlatButton label="Elimina" icon={<Delete />} onClick= { () => {this.props.deletehouse(list.id); location.reload()} } />
 
           </CardActions>
       </Card>
@@ -41,6 +59,7 @@ class ListHouse extends Component {
     return (
   <div>
   {list}
+  {this.state.showComponent ?  <EditHouse {...this.state} /> : null }
   </div>
   )
  }
