@@ -21,9 +21,9 @@ export class Login extends React.Component {
 
 handleSubmit (event) {
   const password_crypted = CryptoJS.SHA256(this.state.password)
-  const email = this.state.email;;
+  const username = this.state.email;;
   const password = password_crypted.toString(CryptoJS.enc.Base64);
-  this.props.login(email,password)
+  this.props.login(username,password)
 
 }
 
@@ -75,8 +75,8 @@ handleChangePassword(event){
 
 function mapDispatchToProps(dispatch) {
   return {
-    login: (email,password) => {
-      dispatch(Actions.registration(email,password))
+    login: (username,password) => {
+      dispatch(Actions.login(username,password))
     }
   }
 }

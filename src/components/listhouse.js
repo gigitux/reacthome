@@ -11,6 +11,8 @@ import Error404 from '../components/error404';
 import Delete from 'material-ui/svg-icons/action/delete';
 import Edit from 'material-ui/svg-icons/editor/mode-edit';
 import Credit_Card from 'material-ui/svg-icons/action/credit-card';
+import cookie from 'react-cookie';
+
 
 class ListHouse extends Component {
   constructor(props){
@@ -24,6 +26,9 @@ class ListHouse extends Component {
   };
   componentWillMount() {
     this.props.fetchHouse()
+    this.state =  { userId: cookie.load('user.connect') };
+    console.log(this.state)
+
   }
 
   showComponent(id,title,description) {

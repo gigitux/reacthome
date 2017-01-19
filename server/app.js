@@ -1,18 +1,16 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var session = require('express-session')
 var router = express.Router();
 var Home = require('./house')
 var mongoose = require('mongoose');
 var Users = require('./user');
 var passport = require('passport');
-var expressSession = require('express-session');
 var LocalStrategy = require('passport-local').Strategy;
-
-
-
 
 const app = express();
 
@@ -27,18 +25,21 @@ mongoose.connect('mongodb://localhost:27017/myproject');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
-app.use(expressSession({secret: 'mySecretKey'}));
+app.use(session({ secret: 'derpy', key: 'user.connect', cookie: {httpOnly: false }}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api', router);
 
 //passport
 passport.serializeUser(function(user, done) {
-  done(null, user._id);
+  console.log("successo")
+  console.log(user.email)
+  done(null, user.email);
 });
 
 passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
+  console.log("deserialize")
+  Users.findOne({"email": id}, function(err, user) {
     done(err, user);
   });
 });
@@ -62,18 +63,17 @@ router.route('/house')
     home.title = req.body.title;
     home.description = req.body.description;
     home.save(function(err) {
-        if (err){
-          return res.json({status: 500, error: err});
-        }
-        res.json({ message: 'Casa creata' });
+      if (err){
+        return res.json({status: 500, error: err});
+      }
+      res.json({ message: 'Casa creata' });
     });
 })
 
 .get(function(req, res) {
     Home.find(function(err, house) {
         if (err)
-            res.send(err);
-
+          res.send(err);
         res.json(house);
     });
 });
@@ -82,54 +82,56 @@ router.route('/house/:id')
 .get(function(req, res) {
     Home.find({id: req.params.id}, function(err, home) {
         if (err)
-            res.send(err);
-        res.json(home);
+          res.send(err);
+          res.json(home);
     });
 })
 .put(function(req, res) {
-  console.log("sto in put")
-      Home.findOne({id: req.params.id}, function(err, home) {
-          if (err)
-          res.send(err);
+  Home.findOne({id: req.params.id}, function(err, home) {
+    if (err)
+    res.send(err);
 
-          home.title = req.body.title;
-          home.description = req.body.description;
+    home.title = req.body.title;
+    home.description = req.body.description;
 
-          home.save(function(err) {
-              if (err)
-                  res.send(err);
-              res.json({ message: 'Casa aggiornata!' });
-          });
-      });
-  })
+    home.save(function(err) {
+      if (err)
+      res.send(err);
+      res.json({ message: 'Casa aggiornata!' });
+    });
+  });
+})
+
 .delete(function(req, res) {
-          Home.remove({
-              id: req.params.id
-          }, function(err, bear) {
-              if (err)
-                  res.send(err);
+    Home.remove({
+      id: req.params.id
+    }, function(err, bear) {
+        if (err)
+          res.send(err);
+          res.json({ message: 'Casa eliminata' });
+    });
+});
 
-              res.json({ message: 'Casa eliminata' });
-          });
-      });
+  router.route('/user')
 
-      router.route('/user')
-
-      .post(function(req, res) {
-          var user = new Users();
-          user.name = req.body.name;
-          user.surname = req.body.surname;
-          user.email = req.body.email
-          user.password = req.body.password;
-          user.save(function(err) {
-              if (err){
-                return res.json({status: 500, error: err});
-              }
-              res.json({ message: 'Utente creato' });
-          });
-      })
-      router.route('/login')
-
+  .post(function(req, res) {
+    var user = new Users();
+    user.name = req.body.name;
+    user.surname = req.body.surname;
+    user.email = req.body.email
+    user.password = req.body.password;
+    user.save(function(err) {
+      if (err){
+        return res.json({status: 500, error: err});
+      }
+      res.json({ message: 'Utente creato' });
+    });
+  })
+  /* Handle Login POST */
+  router.post('/login', passport.authenticate('local', {
+    successRedirect: '/home',
+    failureRedirect: '/',
+  }));
     //   .post(function(req, res, next) {
     //     console.log("alla ricerca di utente")
     //     Users.findOne({email: req.body.email, password: req.body.password}, function(err, user) {
@@ -147,37 +149,21 @@ router.route('/house/:id')
     //         res.redirect('/users/' + req.user.username);
     //       });
 
-    passport.use('login', new LocalStrategy({
-            passReqToCallback: true
-        },
-        function(req, username, password, done) {
-          console.log("sto provando a loggare")
-            // check in mongo if a user with username exists or not
-            Users.findOne({
-                    'username': username,
-                    'password': password
-                },
-                function(err, user) {
-                    // In case of any error, return using the done method
-                    if (err)
-                        return done(err);
-                    // Username does not exist, log error & redirect back
-                    if (!user) {
-                        console.log('User Not Found with username ' + username);
-                        return done(null, false,
-                            req.flash('message', 'User Not found.'));
-                    }
-                    // User exists but wrong password, log the error
-                    if (!isValidPassword(user, password)) {
-                        console.log('Invalid Password');
-                        return done(null, false,
-                            req.flash('message', 'Invalid Password'));
-                    }
-                    // User and password both match, return user from
-                    // done method which will be treated like success
-                    return done(null, user);
-                }
-            );
-        }));
+    passport.use(new LocalStrategy(
+    function(email, password, done) {
+      console.log(email, "email")
+      Users.findOne({ 'email': email }, function(err, user) {
+        if (err) { return done(err); }
+        console.log(user)
+        if (!user) {
+          return done(null, false);
+        }
+        if (user.password != password) {
+          return done(null, false);
+        }
+        return done(null, user, console.log("login successo"));
+      });
+    }
+  ));
 
 module.exports = app;

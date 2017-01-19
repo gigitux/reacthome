@@ -154,7 +154,7 @@ export function registration(name,surname,email,password) {
     }
 }
 
-export function login(email,password) {
+export function login(username,password) {
   console.log("ggg")
     return {
         [CALL_API]: {
@@ -162,7 +162,7 @@ export function login(email,password) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify({
-                email : email,
+                username : username,
                 password: password
             }),
             types: [
