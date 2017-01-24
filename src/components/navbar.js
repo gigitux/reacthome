@@ -23,15 +23,14 @@ showComponent_login() {
     this.setState({showComponent_login: true});
 }
   render() {
-    console.log(this.state.showComponent)
     return(
       <div>
       <AppBar title="React Home"
        iconElementRight={<FlatButton label="Registrazione" onClick= { () => {this.showComponent_registration(), console.log(this.state)}}/>}
        iconElementLeft={<FlatButton label="Login" onClick= { () => {this.showComponent_login(), console.log(this.state)}}/>}
        />
-     {this.state.showComponent_registration ?  <Registration/> : null }
-     {this.state.showComponent_login ?  <Login/> : null }
+     {this.state.showComponent_registration ?  <Registration/> : this.state.showComponent_registration }
+     {this.state.showComponent_login ?  <Login/> : this.state.showComponent_login }
        </div>
     )
   };

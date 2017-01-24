@@ -32,6 +32,7 @@ class ListHouse extends Component {
   }
 
   showComponent(id,title,description) {
+    console.log("ok worka")
     this.setState({
       showComponent: true,
       id_house: id,

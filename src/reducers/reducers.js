@@ -53,6 +53,7 @@ export default function list_house (state = initialState, action) {
       fetchHouse: action.payload
     };
 
+
     break;
     default:
     return state;

@@ -14,16 +14,18 @@ export class Login extends React.Component {
     this.state = {
         email: '',
         password: '',
+        open: true
     }
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handleClose = this.handleClose.bind(this);
 }
 
 handleSubmit (event) {
   const password_crypted = CryptoJS.SHA256(this.state.password)
   const username = this.state.email;;
   const password = password_crypted.toString(CryptoJS.enc.Base64);
-  this.props.login(username,password)
+  this.props.login(username,this.state.password)
 
 }
 
@@ -36,14 +38,17 @@ handleChangePassword(event){
   this.setState({password: event.target.value})
 }
 
+handleClose(event) {
+  this.setState({open : false})
+}
+
   render() {
     return (
       <div>
         <Dialog
           title="Login"
           modal={false}
-          open={true}
-          onRequestClose={this.handleClose}
+          open={this.state.open}
         >
     <TextField
         hintText="Email"
@@ -65,7 +70,13 @@ handleChangePassword(event){
           label="Invia"
           primary={true}
           keyboardFocused={true}
-          onClick={() => { this.handleSubmit(); location.reload() }}
+          onClick={() => {this.handleSubmit()}}
+          />
+        <FlatButton
+          label="Chiudi"
+          primary={true}
+          keyboardFocused={false}
+          onClick={() => {this.handleClose()}}
           />
       </Dialog>
       </div>

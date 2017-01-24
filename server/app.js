@@ -11,6 +11,8 @@ var mongoose = require('mongoose');
 var Users = require('./user');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var flash = require('connect-flash');
+
 
 const app = express();
 
@@ -25,21 +27,21 @@ mongoose.connect('mongodb://localhost:27017/myproject');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
+app.use(cookieParser())
 app.use(session({ secret: 'derpy', key: 'user.connect', cookie: {httpOnly: false }}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 app.use('/api', router);
 
 //passport
 passport.serializeUser(function(user, done) {
-  console.log("successo")
-  console.log(user.email)
-  done(null, user.email);
+  console.log(user._id)
+  done(null, user._id);
 });
 
 passport.deserializeUser(function(id, done) {
-  console.log("deserialize")
-  Users.findOne({"email": id}, function(err, user) {
+  Users.findById(id, function(err, user) {
     done(err, user);
   });
 });
@@ -71,6 +73,7 @@ router.route('/house')
 })
 
 .get(function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
     Home.find(function(err, house) {
         if (err)
           res.send(err);
@@ -127,43 +130,28 @@ router.route('/house/:id')
       res.json({ message: 'Utente creato' });
     });
   })
-  /* Handle Login POST */
-  router.post('/login', passport.authenticate('local', {
-    successRedirect: '/home',
-    failureRedirect: '/',
-  }));
-    //   .post(function(req, res, next) {
-    //     console.log("alla ricerca di utente")
-    //     Users.findOne({email: req.body.email, password: req.body.password}, function(err, user) {
-    //        if(err) return next(err);
-    //        if(!user) return res.send('Non loggato');
-    //        req.session.user = req.body.email;
-    //        return res.send('Loggato');
-    //     });
-    //  });
-    // .post('/login',
-    //     passport.authenticate('local'),
-    //     function(req, res) {
-    //         // If this function gets called, authentication was successful.
-    //         // `req.user` contains the authenticated user.
-    //         res.redirect('/users/' + req.user.username);
-    //       });
+
+
+  app.post('/login', passport.authenticate('local'),function(req, res){
+    res.json(req.user);
+     });
 
     passport.use(new LocalStrategy(
-    function(email, password, done) {
-      console.log(email, "email")
-      Users.findOne({ 'email': email }, function(err, user) {
-        if (err) { return done(err); }
-        console.log(user)
-        if (!user) {
-          return done(null, false);
-        }
-        if (user.password != password) {
-          return done(null, false);
-        }
-        return done(null, user, console.log("login successo"));
-      });
-    }
-  ));
+      function(username, password, done) {
+        Users.findOne({ email: username }, function(err, user) {
+          if (err) { return done(err); }
+          if (!user) {
+            return done(null, false, { message: 'Incorrect username.' });
+          }
+          if (user.password != password) {
+            return done(null, false, { message: 'Incorrect password.' });
+          }
+          return done(null, user);
+        });
+      }
+    ));
+
+
+
 
 module.exports = app;

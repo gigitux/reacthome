@@ -155,16 +155,16 @@ export function registration(name,surname,email,password) {
 }
 
 export function login(username,password) {
-  console.log("ggg")
+  console.log(username,password)
     return {
         [CALL_API]: {
-            endpoint: 'http://localhost:9000/api/login/',
+            endpoint: 'http://localhost:9000/login/',
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({
+            body:{
                 username : username,
                 password: password
-            }),
+            },
             types: [
                 types.LOGIN,
                 {
