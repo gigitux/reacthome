@@ -21,13 +21,11 @@ class ListHouse extends Component {
       showComponent: false,
       id_house : ""
     };
-
     this.showComponent = this.showComponent.bind(this);
   };
   componentWillMount() {
     this.props.fetchHouse()
-    this.state =  { userId: cookie.load('user.connect') };
-    console.log(this.state)
+    this.state.user = JSON.parse(sessionStorage.getItem('user'))
 
   }
 
@@ -46,22 +44,49 @@ class ListHouse extends Component {
     <div key={list.id}>
       <Card style={{width:600}}>
         <CardMedia
-           overlay={<CardTitle title={list.title} onClick={ () => location.href='house/'+list.id} style={{cursor:'pointer'}} />}
-         >
-           <img src={list.photo}/>
-         </CardMedia>
-         <CardTitle title={list.title} />
+          overlay={<CardTitle title={list.title} onClick={ () => location.href='house/'+list.id} style={{cursor:'pointer'}} />}
+          >
+          <img src={list.photo}/>
+        </CardMedia>
+        <CardTitle title={list.title} />
         <CardText>{list.description}</CardText>
         <CardActions>
           <FlatButton label="Prenota" icon={<Credit_Card />}  onClick= { () => console.log("gg") } />
           <FlatButton label="Modifica" icon={<Edit />}  onClick= { () => {this.showComponent(list.id, list.title, list.description)}} />
           <FlatButton label="Elimina" icon={<Delete />} onClick= { () => {this.props.deletehouse(list.id); location.reload()} } />
 
-          </CardActions>
+        </CardActions>
       </Card>
       <br/>
     </div>
   );
+
+  const list_admin=this.props.list.map((list) =>
+  <div key={list.id}>
+    <Card style={{width:600}}>
+      <CardMedia
+        overlay={<CardTitle title={list.title} onClick={ () => location.href='house/'+list.id} style={{cursor:'pointer'}} />}
+        >
+        <img src={list.photo}/>
+      </CardMedia>
+      <CardTitle title={list.title} />
+      <CardText>{list.description}</CardText>
+      <CardActions>
+        <FlatButton label="Modifica" icon={<Edit />}  onClick= { () => {this.showComponent(list.id, list.title, list.description)}} />
+        <FlatButton label="Elimina" icon={<Delete />} onClick= { () => {this.props.deletehouse(list.id); location.reload()} } />
+
+      </CardActions>
+    </Card>
+    <br/>
+  </div>
+);
+    if (this.state.user.role === "admin") {
+      return(
+        <div>
+          {list_admin}
+        </div>
+      )
+    }
     return (
   <div>
   {list}
@@ -72,7 +97,10 @@ class ListHouse extends Component {
 };
 
 function mapStateToProps(state) {
-  return { list: state.list_house.house}
+  return {
+    list: state.list_house.house,
+    user: state.list_house.user
+  }
 }
 
 function mapDispatchToProps(dispatch) {

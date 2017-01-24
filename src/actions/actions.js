@@ -131,7 +131,7 @@ export function registration(name,surname,email,password) {
   console.log("ggg")
     return {
         [CALL_API]: {
-            endpoint: 'http://localhost:9000/api/user/',
+            endpoint: 'http://localhost:9000/api/registration/',
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -161,14 +161,37 @@ export function login(username,password) {
             endpoint: 'http://localhost:9000/login/',
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
-            body:{
+            body: JSON.stringify({
                 username : username,
                 password: password
-            },
+            }),
             types: [
-                types.LOGIN,
+                types.LOGIN_REQUEST,
                 {
                     type: types.LOGIN,
+                    payload: (action, state, res) => {
+                        return res.json();
+                    }
+                },
+                'FAILURE'
+            ]
+        }
+    }
+}
+
+export function user(id) {
+    return {
+        [CALL_API]: {
+            endpoint: 'http://localhost:9000/login/',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+              id: id
+            }),
+            types: [
+                types.FETCH_USER,
+                {
+                    type: types.FETCH_USER_SUCCESS,
                     payload: (action, state, res) => {
                         return res.json();
                     }

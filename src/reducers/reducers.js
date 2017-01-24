@@ -52,6 +52,17 @@ export default function list_house (state = initialState, action) {
       ...state,
       fetchHouse: action.payload
     };
+    case types.LOGIN:
+    console.log(action.payload.id)
+    sessionStorage.setItem('user', JSON.stringify(action.payload));
+    return {
+      ...state,
+      user:action.payload.id
+    };
+    return {
+      ...state,
+      user: action.payload
+    };
 
 
     break;

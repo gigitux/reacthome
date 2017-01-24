@@ -115,8 +115,7 @@ router.route('/house/:id')
     });
 });
 
-  router.route('/user')
-
+  router.route('/registration')
   .post(function(req, res) {
     var user = new Users();
     user.name = req.body.name;
@@ -131,6 +130,18 @@ router.route('/house/:id')
     });
   })
 
+  router.route('/user')
+
+  .post(function(req, res) {
+    console.log(req.body.id)
+    console.log("ggg")
+      Users.find({id: req.body.id}, function(err, user) {
+          if (err)
+            res.send(err);
+            res.json(user);
+      });
+  });
+
 
   app.post('/login', passport.authenticate('local'),function(req, res){
     res.json(req.user);
@@ -138,6 +149,7 @@ router.route('/house/:id')
 
     passport.use(new LocalStrategy(
       function(username, password, done) {
+        console.log(username, password, "blabla")
         Users.findOne({ email: username }, function(err, user) {
           if (err) { return done(err); }
           if (!user) {
@@ -150,6 +162,7 @@ router.route('/house/:id')
         });
       }
     ));
+
 
 
 

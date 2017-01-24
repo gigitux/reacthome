@@ -16,6 +16,10 @@ class NavBar extends Component {
     this.showComponent_login = this.showComponent_login.bind(this);
   };
 
+  componentWillMount() {
+    this.state.user = JSON.parse(sessionStorage.getItem('user'))
+  }
+
 showComponent_registration() {
     this.setState({showComponent_registration: true});
 }
@@ -23,11 +27,21 @@ showComponent_login() {
     this.setState({showComponent_login: true});
 }
   render() {
+    console.log(this.state.user)
+    if (this.state.user) {
+      return(
+        <div>
+        <AppBar title="React Home"
+         iconElementRight={<FlatButton label={this.state.user.name} />}
+         />
+     </div>
+      )
+    }
     return(
       <div>
       <AppBar title="React Home"
-       iconElementRight={<FlatButton label="Registrazione" onClick= { () => {this.showComponent_registration(), console.log(this.state)}}/>}
-       iconElementLeft={<FlatButton label="Login" onClick= { () => {this.showComponent_login(), console.log(this.state)}}/>}
+       iconElementRight={<FlatButton label="Registrazione" onClick= { () => {this.showComponent_registration()}}/>}
+       iconElementLeft={<FlatButton label="Login" onClick= { () => {this.showComponent_login()}}/>}
        />
      {this.state.showComponent_registration ?  <Registration/> : this.state.showComponent_registration }
      {this.state.showComponent_login ?  <Login/> : this.state.showComponent_login }
