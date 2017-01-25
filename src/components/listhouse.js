@@ -12,6 +12,8 @@ import Delete from 'material-ui/svg-icons/action/delete';
 import Edit from 'material-ui/svg-icons/editor/mode-edit';
 import Credit_Card from 'material-ui/svg-icons/action/credit-card';
 import cookie from 'react-cookie';
+import Dialog from 'material-ui/Dialog';
+import Calendar from '../components/calendar.js';
 
 
 class ListHouse extends Component {
@@ -19,15 +21,25 @@ class ListHouse extends Component {
     super(props);
     this.state = {
       showComponent: false,
-      id_house : ""
+      id_house : "",
+      open: false
     };
     this.showComponent = this.showComponent.bind(this);
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   };
   componentWillMount() {
     this.props.fetchHouse()
     this.state.user = JSON.parse(sessionStorage.getItem('user'))
 
   }
+
+  handleOpen() {
+    this.setState({open:true})
+  };
+  handleClose() {
+    this.setState({open:false})
+  };
 
   showComponent(id,title,description) {
     console.log("ok worka")
@@ -40,6 +52,20 @@ class ListHouse extends Component {
   }
 
   render() {
+    const actions = [
+      <FlatButton
+        label="Cancella"
+        primary={true}
+        onClick={this.handleClose}
+      />,
+    <FlatButton
+      label="Prenota"
+      primary={true}
+      keyboardFocused={true}
+      onClick={this.handleClose}
+    />,
+    ];
+
     const list=this.props.list.map((list) =>
     <div key={list.id}>
       <Card style={{width:600}}>
@@ -51,10 +77,7 @@ class ListHouse extends Component {
         <CardTitle title={list.title} />
         <CardText>{list.description}</CardText>
         <CardActions>
-          <FlatButton label="Prenota" icon={<Credit_Card />}  onClick= { () => console.log("gg") } />
-          <FlatButton label="Modifica" icon={<Edit />}  onClick= { () => {this.showComponent(list.id, list.title, list.description)}} />
-          <FlatButton label="Elimina" icon={<Delete />} onClick= { () => {this.props.deletehouse(list.id); location.reload()} } />
-
+          <FlatButton label="Prenota" icon={<Credit_Card />}  onClick= { () => this.handleOpen() } />
         </CardActions>
       </Card>
       <br/>
@@ -80,7 +103,8 @@ class ListHouse extends Component {
     <br/>
   </div>
 );
-    if (this.state.user.role === "admin") {
+
+    if ( this.state.user && this.state.user.role === "admin") {
       return(
         <div>
           {list_admin}
@@ -91,6 +115,17 @@ class ListHouse extends Component {
   <div>
   {list}
   {this.state.showComponent ?  <EditHouse {...this.state} /> : null }
+  <Dialog
+    title="Prenota"
+    actions={actions}
+    modal={false}
+    open={this.state.open}
+    onRequestClose={this.handleClose}
+  >
+  <div style={{height: '500px'}}>
+    <Calendar />
+  </div>
+  </Dialog>
   </div>
   )
  }

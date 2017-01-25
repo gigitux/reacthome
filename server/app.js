@@ -106,6 +106,7 @@ router.route('/house/:id')
 })
 
 .delete(function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
     Home.remove({
       id: req.params.id
     }, function(err, bear) {
