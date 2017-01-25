@@ -22,27 +22,49 @@ class ListHouse extends Component {
     this.state = {
       showComponent: false,
       id_house : "",
-      open: false
+      open: false,
+      focusedInput: null,
+      startDate: null,
+      endDate: null
     };
     this.showComponent = this.showComponent.bind(this);
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.onDatesChange = this.onDatesChange.bind(this);
+    this.onFocusChange = this.onFocusChange.bind(this);
+    this.prenotation = this.prenotation.bind(this);
+
   };
+
+  onDatesChange({ startDate, endDate }) {
+    this.setState({ startDate, endDate });
+  };
+
+  onFocusChange(focusedInput) {
+    this.setState({ focusedInput });
+  };
+
   componentWillMount() {
     this.props.fetchHouse()
     this.state.user = JSON.parse(sessionStorage.getItem('user'))
 
   }
-
-  handleOpen() {
-    this.setState({open:true})
+  prenotation() {
+    console.log("prenotazione")
+    this.props.prenotation(this.state.id_house,this.state.startDate,this.state.endDate)
+  }
+  handleOpen(id) {
+    this.setState({
+      open:true,
+      id_house: id
+    })
+    console.log(this.state.id_house)
   };
   handleClose() {
     this.setState({open:false})
   };
 
   showComponent(id,title,description) {
-    console.log("ok worka")
     this.setState({
       showComponent: true,
       id_house: id,
@@ -52,6 +74,9 @@ class ListHouse extends Component {
   }
 
   render() {
+    if (this.state.startDate) {
+    console.log(this.state.startDate._d)
+    }
     const actions = [
       <FlatButton
         label="Cancella"
@@ -62,7 +87,7 @@ class ListHouse extends Component {
       label="Prenota"
       primary={true}
       keyboardFocused={true}
-      onClick={this.handleClose}
+      onClick={this.prenotation}
     />,
     ];
 
@@ -77,7 +102,7 @@ class ListHouse extends Component {
         <CardTitle title={list.title} />
         <CardText>{list.description}</CardText>
         <CardActions>
-          <FlatButton label="Prenota" icon={<Credit_Card />}  onClick= { () => this.handleOpen() } />
+          <FlatButton label="Prenota" icon={<Credit_Card />}  onClick= { () => this.handleOpen(list.id) } />
         </CardActions>
       </Card>
       <br/>
@@ -123,7 +148,7 @@ class ListHouse extends Component {
     onRequestClose={this.handleClose}
   >
   <div style={{height: '500px'}}>
-    <Calendar />
+    <Calendar setdate={this.onDatesChange} setfocus={this.onFocusChange} {...this.state} {...this.props} />
   </div>
   </Dialog>
   </div>
@@ -145,6 +170,9 @@ function mapDispatchToProps(dispatch) {
     },
     deletehouse: (id) => {
       dispatch(Actions.deletehouse(id))
+    },
+    prenotation: (id,startDate,endDate) => {
+      dispatch(Actions.prenotation(id,startDate,endDate))
     }
   }
 }

@@ -103,7 +103,6 @@ export function deletehouse(id) {
 }
 
 export function editHouse(id,title,description) {
-  console.log("ggg")
     return {
         [CALL_API]: {
             endpoint: 'http://localhost:9000/api/house/'+ id,
@@ -192,6 +191,32 @@ export function user(id) {
                 types.FETCH_USER,
                 {
                     type: types.FETCH_USER_SUCCESS,
+                    payload: (action, state, res) => {
+                        return res.json();
+                    }
+                },
+                'FAILURE'
+            ]
+        }
+    }
+}
+
+export function prenotation(id,startDate,endDate) {
+  console.log(endDate)
+    return {
+        [CALL_API]: {
+            endpoint: 'http://localhost:9000/api/prenotation',
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                id: id,
+                startDate: startDate,
+                endDate: endDate
+            }),
+            types: [
+                types.PRENOTATIONHOUSE_REQUEST,
+                {
+                    type: types.PRENOTATIONHOUSE_SUCCESS,
                     payload: (action, state, res) => {
                         return res.json();
                     }

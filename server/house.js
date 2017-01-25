@@ -13,7 +13,13 @@ var HomeSchema   = new Schema({
     description: String,
     id: Number,
     andress: String,
-    photo: String
+    photo: String,
+    reserved: [
+      {
+      startDate: String,
+      endDate: String
+      }
+    ]
 },
 { collection : 'Home'});
 HomeSchema.plugin(autoIncrement.plugin, { model: 'Home', field: 'id' });

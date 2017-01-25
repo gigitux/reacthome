@@ -103,6 +103,28 @@ router.route('/house/:id')
       res.json({ message: 'Casa aggiornata!' });
     });
   });
+});
+
+router.route('/prenotation')
+.put(function(req, res) {
+  console.log("prenotazione")
+  console.log(req.body.id)
+  console.log(req.body.startDate)
+  console.log(req.body.endDate)
+  Home.findOne({id: req.body.id}, function(err, home) {
+    console.log(home)
+    if (err)
+    res.send(err);
+
+    home.reserved[0].startDate = req.body.startDate;
+    home.reserved[0].endDate = req.body.endDate;
+
+    home.save(function(err) {
+      if (err)
+      res.send(err);
+      res.json({ message: 'Casa aggiornata!' });
+    });
+  });
 })
 
 .delete(function(req, res) {

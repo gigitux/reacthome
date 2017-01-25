@@ -1,5 +1,5 @@
 import React from 'react';
-
+import moment from 'moment'
 import {DateRangePicker}  from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 
@@ -12,36 +12,34 @@ class Calendar extends React.Component {
       startDate: null,
       endDate: null,
     };
-
-    this.onDatesChange = this.onDatesChange.bind(this);
-    this.onFocusChange = this.onFocusChange.bind(this);
   }
 
-  onDatesChange({ startDate, endDate }) {
-    this.setState({ startDate, endDate });
-  }
+  // isDayBlocked() {
+  //   return "2017-01-25T17"
+  // }
 
-  onFocusChange(focusedInput) {
-    this.setState({ focusedInput });
-  }
 
   render() {
+    console.log(moment())
     const { focusedInput, startDate, endDate } = this.state;
     return (
       <div>
         <DateRangePicker
-          {...this.props}
-          onDatesChange={this.onDatesChange}
-          onFocusChange={this.onFocusChange}
-          focusedInput={focusedInput}
-          startDate={startDate}
-          endDate={endDate}
+          onDatesChange={this.props.setdate}
+          onFocusChange={this.props.setfocus}
+          focusedInput={this.props.focusedInput}
+          startDate={this.props.startDate}
+          endDate={this.props.endDate}
           startDatePlaceholderText="Primo giorno"
           endDatePlaceholderText="Ultimo giorno"
+          minimumNights={0}
+          isDayBlocked={() => moment()}
+          keepOpenOnDateSelect
         />
       </div>
     );
   }
 }
+
 
 export default Calendar;
