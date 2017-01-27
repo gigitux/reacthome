@@ -17,7 +17,7 @@ var HomeSchema   = new Schema({
     reserved: [
       {
       startDate: String,
-      endDate: String
+      endDate: String,
       }
     ]
 },

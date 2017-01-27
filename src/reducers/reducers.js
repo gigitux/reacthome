@@ -59,9 +59,10 @@ export default function list_house (state = initialState, action) {
       ...state,
       user:action.payload.id
     };
+    case types.PRENOTATIONHOUSE_REQUEST:
     return {
       ...state,
-      user: action.payload
+      prenotation_house: action.payload
     };
 
 

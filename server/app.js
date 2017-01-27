@@ -36,7 +36,6 @@ app.use('/api', router);
 
 //passport
 passport.serializeUser(function(user, done) {
-  console.log(user._id)
   done(null, user._id);
 });
 
@@ -60,7 +59,6 @@ router.use(function(req, res, next) {
 router.route('/house')
 
 .post(function(req, res) {
-  console.log("cistodentro")
     var home = new Home();
     home.title = req.body.title;
     home.description = req.body.description;
@@ -108,17 +106,11 @@ router.route('/house/:id')
 router.route('/prenotation')
 .put(function(req, res) {
   console.log("prenotazione")
-  console.log(req.body.id)
-  console.log(req.body.startDate)
   console.log(req.body.endDate)
   Home.findOne({id: req.body.id}, function(err, home) {
-    console.log(home)
     if (err)
     res.send(err);
-
-    home.reserved[0].startDate = req.body.startDate;
-    home.reserved[0].endDate = req.body.endDate;
-
+    home.reserved.push({startDate:req.body.startDate, endDate: req.body.endDate} );
     home.save(function(err) {
       if (err)
       res.send(err);
@@ -156,8 +148,6 @@ router.route('/prenotation')
   router.route('/user')
 
   .post(function(req, res) {
-    console.log(req.body.id)
-    console.log("ggg")
       Users.find({id: req.body.id}, function(err, user) {
           if (err)
             res.send(err);
@@ -172,7 +162,6 @@ router.route('/prenotation')
 
     passport.use(new LocalStrategy(
       function(username, password, done) {
-        console.log(username, password, "blabla")
         Users.findOne({ email: username }, function(err, user) {
           if (err) { return done(err); }
           if (!user) {

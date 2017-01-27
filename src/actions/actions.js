@@ -202,7 +202,7 @@ export function user(id) {
 }
 
 export function prenotation(id,startDate,endDate) {
-  console.log(endDate)
+  console.log(startDate)
     return {
         [CALL_API]: {
             endpoint: 'http://localhost:9000/api/prenotation',

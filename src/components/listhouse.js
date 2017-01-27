@@ -101,13 +101,28 @@ class ListHouse extends Component {
         </CardMedia>
         <CardTitle title={list.title} />
         <CardText>{list.description}</CardText>
-        <CardActions>
-          <FlatButton label="Prenota" icon={<Credit_Card />}  onClick= { () => this.handleOpen(list.id) } />
-        </CardActions>
       </Card>
       <br/>
     </div>
   );
+
+  const list_user=this.props.list.map((list) =>
+  <div key={list.id}>
+    <Card style={{width:600}}>
+      <CardMedia
+        overlay={<CardTitle title={list.title} onClick={ () => location.href='house/'+list.id} style={{cursor:'pointer'}} />}
+        >
+        <img src={list.photo}/>
+      </CardMedia>
+      <CardTitle title={list.title} />
+      <CardText>{list.description}</CardText>
+      <CardActions>
+        <FlatButton label="Prenota" icon={<Credit_Card />}  onClick= { () => this.handleOpen(list.id) } />
+      </CardActions>
+    </Card>
+    <br/>
+  </div>
+);
 
   const list_admin=this.props.list.map((list) =>
   <div key={list.id}>
@@ -136,21 +151,28 @@ class ListHouse extends Component {
         </div>
       )
     }
+    if ( this.state.user && this.state.user.role === "user") {
+      return(
+        <div>
+          {list_user}
+          <Dialog
+            title="Prenota"
+            actions={actions}
+            modal={false}
+            open={this.state.open}
+            onRequestClose={this.handleClose}
+            >
+            <div style={{height: '500px'}}>
+              <Calendar setdate={this.onDatesChange} setfocus={this.onFocusChange} {...this.state} {...this.props} />
+            </div>
+          </Dialog>
+        </div>
+      )
+    }
     return (
   <div>
-  {list}
-  {this.state.showComponent ?  <EditHouse {...this.state} /> : null }
-  <Dialog
-    title="Prenota"
-    actions={actions}
-    modal={false}
-    open={this.state.open}
-    onRequestClose={this.handleClose}
-  >
-  <div style={{height: '500px'}}>
-    <Calendar setdate={this.onDatesChange} setfocus={this.onFocusChange} {...this.state} {...this.props} />
-  </div>
-  </Dialog>
+    {list}
+    {this.state.showComponent ?  <EditHouse {...this.state} /> : null }
   </div>
   )
  }
