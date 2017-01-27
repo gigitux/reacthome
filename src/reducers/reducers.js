@@ -55,10 +55,11 @@ export default function list_house (state = initialState, action) {
     case types.LOGIN:
     console.log(action.payload.id)
     sessionStorage.setItem('user', JSON.stringify(action.payload));
+    location.reload();
     return {
       ...state,
       user:action.payload.id
-    };
+    }
     case types.PRENOTATIONHOUSE_REQUEST:
     return {
       ...state,

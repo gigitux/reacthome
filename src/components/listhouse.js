@@ -101,7 +101,7 @@ class ListHouse extends Component {
         </CardMedia>
         <CardTitle title={list.title} />
         <CardText>{list.description}</CardText>
-      </Card>
+        </Card>
       <br/>
     </div>
   );
@@ -148,6 +148,7 @@ class ListHouse extends Component {
       return(
         <div>
           {list_admin}
+          {this.state.showComponent ?  <EditHouse {...this.state} /> : null }
         </div>
       )
     }
@@ -172,7 +173,6 @@ class ListHouse extends Component {
     return (
   <div>
     {list}
-    {this.state.showComponent ?  <EditHouse {...this.state} /> : null }
   </div>
   )
  }

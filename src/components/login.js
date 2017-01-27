@@ -26,11 +26,6 @@ handleSubmit (event) {
   const username = this.state.email.trim();
   const password = this.state.password.trim();
   this.props.login(username,password);
-  if (sessionStorage.getItem('user')) {
-    location.reload()
-  }
-
-
 }
 
 
