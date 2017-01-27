@@ -23,8 +23,10 @@ export class Login extends React.Component {
 
 handleSubmit (event) {
   const password_crypted = CryptoJS.SHA256(this.state.password)
+  const username_crypted = CryptoJS.SHA256(this.state.email.trim());
   const username = this.state.email.trim();
-  const password = this.state.password.trim();
+  const password = password_crypted.toString(CryptoJS.enc.Base64);
+  console.log(username)
   this.props.login(username,password);
 }
 

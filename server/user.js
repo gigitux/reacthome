@@ -22,6 +22,9 @@ var UsersSchema   = new Schema({
       required: true,
     },
     id: Number,
+    role: {
+      type: String,
+      default: "user" }
 },
 { collection : 'Users'});
 UsersSchema.plugin(autoIncrement.plugin, { model: 'Users', field: 'id' });

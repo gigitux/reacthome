@@ -14,6 +14,8 @@ import Credit_Card from 'material-ui/svg-icons/action/credit-card';
 import cookie from 'react-cookie';
 import Dialog from 'material-ui/Dialog';
 import Calendar from '../components/calendar.js';
+import AddButton from '../components/addbutton';
+
 
 
 class ListHouse extends Component {
@@ -145,10 +147,13 @@ class ListHouse extends Component {
 );
 
     if ( this.state.user && this.state.user.role === "admin") {
+      console.log("sonoadmin")
       return(
         <div>
           {list_admin}
           {this.state.showComponent ?  <EditHouse {...this.state} /> : null }
+          <AddButton />
+
         </div>
       )
     }

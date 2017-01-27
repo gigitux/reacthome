@@ -53,7 +53,6 @@ ReactDOM.render(
 const App = () => (
   <div>
     <ListHouse />
-    <AddButton />
   </div>
 );
 
