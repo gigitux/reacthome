@@ -58,6 +58,9 @@ handleChangeDescription(event) {
         />
       <br/>
         <TextField
+        multiLine={true}
+        rows={2}
+        rowsMax={4}
         hintText="Descrizione"
         errorText="Questo campo è richiesto"
         value={this.state.description}
