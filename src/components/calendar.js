@@ -26,7 +26,6 @@ class Calendar extends React.Component {
         BAD_DATES.push(find_house.reserved[i].startDate_moment );
         BAD_DATES.push(find_house.reserved[i].endDate_moment );
       }
-      console.log(BAD_DATES)
       const isDayBlocked = day => BAD_DATES.filter(d => d.isSame(day, 'day')).length > 0;
       const { focusedInput, startDate, endDate } = this.state;
       return (

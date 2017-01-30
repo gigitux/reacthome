@@ -27,12 +27,12 @@ showComponent_login() {
     this.setState({showComponent_login: true});
 }
   render() {
-    console.log(this.state.user)
     if (this.state.user) {
       return(
         <div>
         <AppBar title="React Home"
          iconElementRight={<FlatButton label={this.state.user.name} />}
+         iconElementLeft={<FlatButton label="Logout" onClick={() => {sessionStorage.clear(); location.reload()}} />}
          />
      </div>
       )

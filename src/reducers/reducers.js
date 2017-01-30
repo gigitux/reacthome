@@ -61,12 +61,16 @@ export default function list_house (state = initialState, action) {
       user:action.payload.id
     }
     case types.PRENOTATIONHOUSE_REQUEST:
+    location.reload()
     return {
       ...state,
       prenotation_house: action.payload
     };
-
-
+    case 'FAILURE':
+    alert("Password o email sbagliate")
+    return {
+      ...state
+    }
     break;
     default:
     return state;

@@ -1,70 +1,38 @@
 import React from 'react';
-import DateRangePicker from 'react-daterange-picker';
-import moment from 'moment-range';
+import DayPicker, { DateUtils } from 'react-day-picker';
 
-const stateDefinitions = {
-  available: {
-    color: null,
-    label: 'Available',
-  },
-  enquire: {
-    color: '#ffd200',
-    label: 'Enquire',
-  },
-  unavailable: {
-    selectable: false,
-    color: '#78818b',
-    label: 'Unavailable',
-  },
-};
+import 'react-day-picker/lib/style.css';
 
-const dateRanges = [
-  {
-    state: 'enquire',
-    range: moment.range(
-      moment().add(2, 'weeks').subtract(5, 'days'),
-      moment().add(2, 'weeks').add(6, 'days')
-    ),
-  },
-  {
-    state: 'unavailable',
-    range: moment.range(
-      moment().add(3, 'weeks'),
-      moment().add(3, 'weeks').add(5, 'days')
-    ),
-  },
-];
-
-const Better_Calendar = React.createClass({
-  getInitialState() {
-    return {
-      value: null,
-    };
-  },
-  handleSelect(range, states) {
-    // range is a moment-range object
+export default class DisabledDays extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleDayClick = this.handleDayClick.bind(this);
+  }
+  state = {
+    selectedDay: null,
+  };
+  handleDayClick(e, day, { disabled, selected }) {
+    if (disabled) {
+      return;
+    }
     this.setState({
-      value: range,
-      states: states,
+      selectedDay: selected ? null : day,
     });
-  },
-
+  }
   render() {
+    const { selectedDay } = this.state;
     return (
-      <DateRangePicker
-        firstOfWeek={1}
-        numberOfCalendars={2}
-        selectionType='range'
-        minimumDate={new Date()}
-        stateDefinitions={stateDefinitions}
-        dateStates={dateRanges}
-        defaultState="available"
-        showLegend={true}
-        value={this.state.value}
-        onSelect={this.handleSelect} />
+      <div>
+        <DayPicker
+          selectedDays={ day => DateUtils.isSameDay(selectedDay, day) }
+          disabledDays={ DateUtils.isPastDay }
+          enableOutsideDays
+          onDayClick={ this.handleDayClick }
+        />
+        <p>
+          { selectedDay ? selectedDay.toLocaleDateString() : 'Please select a day 👻' }
+        </p>
+      </div>
     );
-  },
-});
-
-
-export default Better_Calendar;
+  }
+}

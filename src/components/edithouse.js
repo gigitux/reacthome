@@ -28,7 +28,6 @@ handleSubmit (event) {
   const title = this.state.title;
   const description = this.state.description;
   this.props.editHouse(id,title,description);
-  console.log("blabla")
 }
 
 handleChangeTitle(event) {
