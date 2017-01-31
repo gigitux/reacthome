@@ -76,9 +76,6 @@ class ListHouse extends Component {
   }
 
   render() {
-    if (this.state.startDate) {
-    console.log(this.state.startDate._d)
-    }
     const actions = [
       <FlatButton
         label="Cancella"
