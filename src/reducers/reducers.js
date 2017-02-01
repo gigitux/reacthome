@@ -70,6 +70,11 @@ export default function list_house (state = initialState, action) {
     alert("Password o email sbagliate")
     return {
       ...state
+    };
+    case types.HOUSEPRENOTATE_SUCCESS:
+    return {
+      ...state,
+      prenotate_house: action.payload
     }
     break;
     default:

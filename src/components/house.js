@@ -18,8 +18,10 @@ class House extends Component {
   render() {
     return (
   <div>
-  {this.props.house ? this.props.house[0].title : ""}
-</div>
+    {this.props.house ? this.props.house[0].title : ""}
+    <br/>
+    {this.props.house ? this.props.house[0].description : ""}
+  </div>
   )};
 }
 

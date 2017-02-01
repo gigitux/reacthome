@@ -53,7 +53,7 @@ class ListHouse extends Component {
   }
   prenotation() {
     console.log("prenotazione")
-    this.props.prenotation(this.state.id_house,this.state.startDate,this.state.endDate)
+    this.props.prenotation(this.state.id_house,this.state.startDate,this.state.endDate, this.state.user.email)
   }
   handleOpen(id) {
     this.setState({
@@ -195,8 +195,8 @@ function mapDispatchToProps(dispatch) {
     deletehouse: (id) => {
       dispatch(Actions.deletehouse(id))
     },
-    prenotation: (id,startDate,endDate) => {
-      dispatch(Actions.prenotation(id,startDate,endDate))
+    prenotation: (id,startDate,endDate, user) => {
+      dispatch(Actions.prenotation(id,startDate,endDate, user))
     }
   }
 }

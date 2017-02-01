@@ -201,7 +201,7 @@ export function user(id) {
     }
 }
 
-export function prenotation(id,startDate,endDate) {
+export function prenotation(id, startDate, endDate, user) {
   console.log(startDate)
     return {
         [CALL_API]: {
@@ -211,12 +211,36 @@ export function prenotation(id,startDate,endDate) {
             body: JSON.stringify({
                 id: id,
                 startDate: startDate,
-                endDate: endDate
+                endDate: endDate,
+                user: user
             }),
             types: [
                 types.PRENOTATIONHOUSE_REQUEST,
                 {
                     type: types.PRENOTATIONHOUSE_SUCCESS,
+                    payload: (action, state, res) => {
+                        return res.json();
+                    }
+                },
+                'FAILURE'
+            ]
+        }
+    }
+}
+
+export function house_prenotate(user) {
+    return {
+        [CALL_API]: {
+            endpoint: 'http://localhost:9000/api/house_prenotate',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                user: user,
+            }),
+            types: [
+                types.HOUSEPRENOTATE_REQUEST,
+                {
+                    type: types.HOUSEPRENOTATE_SUCCESS,
                     payload: (action, state, res) => {
                         return res.json();
                     }

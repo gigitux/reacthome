@@ -110,7 +110,7 @@ router.route('/prenotation')
   Home.findOne({id: req.body.id}, function(err, home) {
     if (err)
     res.send(err);
-    home.reserved.push({startDate:req.body.startDate, endDate: req.body.endDate} );
+    home.reserved.push({startDate:req.body.startDate, endDate: req.body.endDate, user: req.body.user} );
     home.save(function(err) {
       if (err)
       res.send(err);
@@ -129,6 +129,17 @@ router.route('/prenotation')
           res.json({ message: 'Casa eliminata' });
     });
 });
+
+  router.route('/house_prenotate')
+    .post(function(req, res) {
+      console.log("prenotttt")
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      Home.find({user: req.params.user}, function(err, home) {
+          if (err)
+            res.send(err);
+            res.json(home);
+      });
+    });
 
   router.route('/registration')
   .post(function(req, res) {

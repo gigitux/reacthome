@@ -18,6 +18,7 @@ var HomeSchema   = new Schema({
       {
       startDate: String,
       endDate: String,
+      user: String
       }
     ]
 },
