@@ -14,6 +14,7 @@ import Credit_Card from 'material-ui/svg-icons/action/credit-card';
 import cookie from 'react-cookie';
 import Dialog from 'material-ui/Dialog';
 import Calendar from '../components/calendar.js';
+import Loading from 'react-loading';
 import AddButton from '../components/addbutton';
 
 
@@ -90,6 +91,13 @@ class ListHouse extends Component {
     />,
     ];
 
+    if (this.props.list == null) {
+      return (
+        <div>
+          <Loading type='balls' color='#00bcd4' />
+        </div>
+      )}
+      else {
     const list=this.props.list.map((list) =>
     <div key={list.id}>
       <Card style={{width:600}}>
@@ -142,7 +150,6 @@ class ListHouse extends Component {
     <br/>
   </div>
 );
-
     if ( this.state.user && this.state.user.role === "admin") {
       console.log("sonoadmin")
       return(
@@ -177,6 +184,7 @@ class ListHouse extends Component {
     {list}
   </div>
   )
+ }
  }
 };
 

@@ -127,7 +127,6 @@ export function editHouse(id,title,description) {
 }
 
 export function registration(name,surname,email,password) {
-  console.log("ggg")
     return {
         [CALL_API]: {
             endpoint: 'http://localhost:9000/api/registration/',
@@ -202,30 +201,34 @@ export function user(id) {
 }
 
 export function prenotation(id, startDate, endDate, user) {
-  console.log(startDate)
+  if (startDate == null && endDate == null) {
+    alert("Selezionare le date")
+  }
+  else {
     return {
-        [CALL_API]: {
-            endpoint: 'http://localhost:9000/api/prenotation',
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                id: id,
-                startDate: startDate,
-                endDate: endDate,
-                user: user
-            }),
-            types: [
-                types.PRENOTATIONHOUSE_REQUEST,
-                {
-                    type: types.PRENOTATIONHOUSE_SUCCESS,
-                    payload: (action, state, res) => {
-                        return res.json();
-                    }
-                },
-                'FAILURE'
-            ]
-        }
+      [CALL_API]: {
+          endpoint: 'http://localhost:9000/api/prenotation',
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json'},
+          body: JSON.stringify({
+              id: id,
+              startDate: startDate,
+              endDate: endDate,
+              user: user
+          }),
+          types: [
+              types.PRENOTATIONHOUSE_REQUEST,
+              {
+                  type: types.PRENOTATIONHOUSE_SUCCESS,
+                  payload: (action, state, res) => {
+                      return res.json();
+                  }
+              },
+              'FAILURE'
+          ]
+      }
     }
+  }
 }
 
 export function house_prenotate(user) {

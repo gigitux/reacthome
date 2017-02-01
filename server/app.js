@@ -132,7 +132,6 @@ router.route('/prenotation')
 
   router.route('/house_prenotate')
     .post(function(req, res) {
-      console.log("prenotttt")
       res.setHeader('Access-Control-Allow-Origin', '*');
       Home.find({user: req.params.user}, function(err, home) {
           if (err)
