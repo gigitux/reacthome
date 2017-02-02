@@ -18,6 +18,7 @@ import AddButton from './components/addbutton';
 import Error404 from './components/error404';
 import House from './components/house';
 import House_prenotate from './components/house_prenotate';
+import Panel from './components/panel';
 
 const reducers = {
   list_house: list_house
@@ -32,6 +33,7 @@ const Routes = (props) => (
     <Route path="/about" component={AddButton} />
     <Route path="house/:id" component={House} />
     <Route path="/house_prenotate" component={House_prenotate} />
+    <Route path="/admin/:id" component={Panel} />
     <Route path="*" component={Error404} />
   </Router>
   </MuiThemeProvider>

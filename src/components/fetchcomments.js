@@ -38,8 +38,7 @@ class Fetchcomments extends Component {
 
 function mapStateToProps(state) {
   return {
-    comments: state.list_house.fetch_comments,
-    comment1: "ggg"
+    comments: state.list_house.fetch_comments
   }
 }
 

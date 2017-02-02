@@ -11,6 +11,8 @@ import Error404 from '../components/error404';
 import Delete from 'material-ui/svg-icons/action/delete';
 import Edit from 'material-ui/svg-icons/editor/mode-edit';
 import Credit_Card from 'material-ui/svg-icons/action/credit-card';
+import Assignment from 'material-ui/svg-icons/action/assignment';
+
 import cookie from 'react-cookie';
 import Dialog from 'material-ui/Dialog';
 import Calendar from '../components/calendar.js';
@@ -77,6 +79,12 @@ class ListHouse extends Component {
   }
 
   render() {
+    if (this.props.list == null) {
+      return null
+    }
+    else {
+      console.log(this.props.list)
+    }
     const actions = [
       <FlatButton
         label="Cancella"
@@ -144,6 +152,7 @@ class ListHouse extends Component {
       <CardActions>
         <FlatButton label="Modifica" icon={<Edit />}  onClick= { () => {this.showComponent(list.id, list.title, list.description)}} />
         <FlatButton label="Elimina" icon={<Delete />} onClick= { () => {this.props.deletehouse(list.id); location.reload()} } />
+        <FlatButton label={"Gestione prenotazione"+ " " + Object.keys(list.reserved).length} icon={<Assignment />} onClick={ () => location.href='admin/'+list.id} />
 
       </CardActions>
     </Card>
