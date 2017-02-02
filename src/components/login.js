@@ -8,7 +8,7 @@ import * as Actions from '../actions/actions';
 import TextField from 'material-ui/TextField';
 import CryptoJS from 'crypto-js';
 
-export class Login extends React.Component {
+export class Login extends Component {
   constructor(props){
     super(props);
     this.state = {

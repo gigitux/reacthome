@@ -253,3 +253,50 @@ export function house_prenotate(user) {
         }
     }
 }
+
+export function addcomment(id, comment) {
+    return {
+        [CALL_API]: {
+            endpoint: 'http://localhost:9000/api/addcomment',
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                id: id,
+                comment: comment
+            }),
+            types: [
+                types.ADDCOMMENT_REQUEST,
+                {
+                    type: types.ADDCOMMENT_SUCCESS,
+                    payload: (action, state, res) => {
+                        return res.json();
+                    }
+                },
+                'FAILURE'
+            ]
+        }
+    }
+}
+
+export function fetchcomments(id) {
+    return {
+        [CALL_API]: {
+            endpoint: 'http://localhost:9000/api/fetchcomment',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                id: id,
+            }),
+            types: [
+                types.FETCHCOMMENT_REQUEST,
+                {
+                    type: types.FETCHCOMMENT_SUCCESS,
+                    payload: (action, state, res) => {
+                        return res.json();
+                    }
+                },
+                'FAILURE'
+            ]
+        }
+    }
+}

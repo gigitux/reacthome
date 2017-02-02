@@ -20,6 +20,11 @@ var HomeSchema   = new Schema({
       endDate: String,
       user: String
       }
+    ],
+    comments: [
+      {
+        comment: String
+      }
     ]
 },
 { collection : 'Home'});

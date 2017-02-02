@@ -104,20 +104,21 @@ router.route('/house/:id')
 });
 
 router.route('/prenotation')
-.put(function(req, res) {
-  console.log("prenotazione")
-  console.log(req.body.endDate)
-  Home.findOne({id: req.body.id}, function(err, home) {
-    if (err)
-    res.send(err);
-    home.reserved.push({startDate:req.body.startDate, endDate: req.body.endDate, user: req.body.user} );
-    home.save(function(err) {
+  .put(function(req, res) {
+    console.log("prenotazione")
+    console.log(req.body.endDate)
+    Home.findOne({id: req.body.id}, function(err, home) {
       if (err)
       res.send(err);
-      res.json({ message: 'Casa aggiornata!' });
+      home.reserved.push({startDate:req.body.startDate, endDate: req.body.endDate, user: req.body.user} );
+      home.save(function(err) {
+        if (err)
+        res.send(err);
+        res.json({ message: 'Casa aggiornata!' });
+      });
     });
-  });
-})
+  })
+
 
 .delete(function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -186,6 +187,31 @@ router.route('/prenotation')
     ));
 
 
+  router.route('/addcomment')
+    .put(function(req, res) {
+      console.log("aggiunta commento")
+      console.log(req.body)
+      Home.findOne({id: req.body.id}, function(err, home) {
+        if (err)
+        res.send(err);
+        home.comments.push({comment: req.body.comment});
+        home.save(function(err) {
+          res.json({ message: 'Commento aggiornato!' });
+        });
+      });
+    });
+
+    router.route('/fetchcomment')
+    .post(function(req, res) {
+      console.log("sto prendendo i commenti")
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      Home.findOne({id: req.body.id}, function(err, home) {
+          if (err)
+            res.send(err);
+            res.json(home.comments);
+            console.log(home.comments)
+      });
+    });
 
 
 

@@ -1,7 +1,7 @@
 import * as types from '../actions/actiontypes';
 
 const initialState = {
-  id_house: [1,2],
+  // id_house: [1,2],
   // house: [
   //   {
   //     id: 1,
@@ -75,6 +75,13 @@ export default function list_house (state = initialState, action) {
     return {
       ...state,
       prenotate_house: action.payload
+    }
+    case types.ADDCOMMENT_SUCCESS:
+    location.reload()
+    case types.FETCHCOMMENT_SUCCESS:
+    return {
+      ...state,
+      fetch_comments: action.payload
     }
     break;
     default:

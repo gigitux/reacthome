@@ -40,7 +40,6 @@ handleChangeDescription(event) {
 
 
   render() {
-    console.log(this.state.id)
     return (
       <div>
         <Dialog
