@@ -17,7 +17,7 @@ class NavBar extends Component {
   };
 
   componentWillMount() {
-    this.state.user = JSON.parse(sessionStorage.getItem('user'))
+    this.setState({user:JSON.parse(sessionStorage.getItem('user'))})
   }
 
 showComponent_registration() {
@@ -40,8 +40,8 @@ showComponent_login() {
     return(
       <div>
       <AppBar title="React Home"
-       iconElementRight={<FlatButton label="Registrazione" onClick= { () => {this.showComponent_registration()}}/>}
-       iconElementLeft={<FlatButton label="Login" onClick= { () => {this.showComponent_login()}}/>}
+       iconElementRight={<FlatButton label="Registrazione" onClick={ () => {this.showComponent_registration()}}/>}
+       iconElementLeft={<FlatButton label="Login" onClick={ () => {this.showComponent_login()}}/>}
        />
      {this.state.showComponent_registration ?  <Registration/> : this.state.showComponent_registration }
      {this.state.showComponent_login ?  <Login/> : this.state.showComponent_login }

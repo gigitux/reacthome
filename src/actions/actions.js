@@ -302,7 +302,6 @@ export function fetchcomments(id) {
 }
 
 export function accept(id, user, startDate) {
-  console.log(id, user, startDate)
     return {
         [CALL_API]: {
             endpoint: 'http://localhost:9000/api/accept',
@@ -328,7 +327,6 @@ export function accept(id, user, startDate) {
 }
 
 export function refuse(id, user, startDate) {
-  console.log(id, user, startDate)
     return {
         [CALL_API]: {
             endpoint: 'http://localhost:9000/api/refuse',

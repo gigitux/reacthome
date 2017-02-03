@@ -2,14 +2,11 @@ import React, {Component} from 'react';
 /*Import Redux Stuff */
 import { connect } from 'react-redux';
 import * as Actions from '../actions/actions';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
+
 
 
 class Fetchcomments extends Component {
-  constructor(props){
-    super(props);
-  }
+
 
   componentWillMount() {
     console.log(this.props.idhouse)

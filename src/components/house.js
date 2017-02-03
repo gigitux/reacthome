@@ -1,8 +1,6 @@
 /* Import React Stuff */
 import React, {Component} from 'react';
 /*Import Material Stuff */
-import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
 /*Import Redux Stuff */
 import { connect } from 'react-redux';
 import * as Actions from '../actions/actions';
@@ -17,7 +15,7 @@ class House extends Component {
   };
   componentWillMount() {
     this.props.fetchoneHouse(this.props.params.id)
-    this.state.user = JSON.parse(sessionStorage.getItem('user'))
+    this.setState({user:JSON.parse(sessionStorage.getItem('user'))})
   };
   render() {
     if (this.state.user == null) {

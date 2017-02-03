@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {Component} from 'react';
 import * as Table from 'reactabular-table';
-import style from 'reactabular-table'
 import { connect } from 'react-redux';
 import * as Actions from '../actions/actions';
 import Done from 'material-ui/svg-icons/action/done';
 import Delete from 'material-ui/svg-icons/action/delete';
+import Loading from 'react-loading';
 
 
 
-class Panel extends React.Component {
+
+class Panel extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,9 +32,10 @@ class Panel extends React.Component {
 
 
   render() {
-    console.log("sto nel pannello")
     if (this.props.house == null) {
-      return null
+      return (
+        <Loading type='balls' color='#00bcd4' />
+       )
     }
     else {
       const columns = [
@@ -47,33 +49,18 @@ class Panel extends React.Component {
           property: 'endDate',
           header: {
             label: 'Data di fine',
-            transforms: [
-              label => ({
-                onClick: () => alert(`clicked ${label}`)
-              })
-            ]
           }
         },
         {
           property: 'user',
           header: {
-            label: 'Utente',
-            transforms: [
-              label => ({
-                onClick: () => alert(`clicked ${label}`)
-              })
-            ]
+            label: 'Utente'
           }
         },
         {
           property: 'flag',
           header: {
-            label: 'Disponibilità',
-            transforms: [
-              label => ({
-                onClick: () => alert(`clicked ${label}`)
-              })
-            ]
+            label: 'Disponibilità'
           }
         },
         {
@@ -82,8 +69,8 @@ class Panel extends React.Component {
             formatters: [
               (value, { rowData }) => (
                 <div>
-                  <Done onClick={() => this.props.accept(this.props.house[0].id, rowData.user, rowData.startDate)} />
-                  <Delete onClick={() => this.props.refuse(this.props.house[0].id, rowData.user, rowData.startDate)}/>
+                  <Done onClick={() => this.props.accept(this.props.house[0].id, rowData.user, rowData.startDate)} style={{cursor:'pointer'}} />
+                  <Delete onClick={() => this.props.refuse(this.props.house[0].id, rowData.user, rowData.startDate)} style={{cursor:'pointer'}} />
                 </div>
               )
             ]
@@ -93,14 +80,16 @@ class Panel extends React.Component {
       const rows = this.props.house[0].reserved
 
       return (
-        <Table.Provider
-          className="pure-table pure-table-striped"
-          columns={columns}
-          >
-          <Table.Header />
+        <div>
+          <Table.Provider
+            className="pure-table pure-table-striped"
+            columns={columns}
+            >
+            <Table.Header />
 
-          <Table.Body rows={rows} />
-        </Table.Provider>
+            <Table.Body rows={rows} rowKey="_id" />
+          </Table.Provider>
+        </div>
       );
     }
   }

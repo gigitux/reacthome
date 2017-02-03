@@ -7,13 +7,11 @@ import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
 import * as Actions from '../actions/actions';
 import EditHouse from '../components/edithouse';
-import Error404 from '../components/error404';
 import Delete from 'material-ui/svg-icons/action/delete';
 import Edit from 'material-ui/svg-icons/editor/mode-edit';
-import Credit_Card from 'material-ui/svg-icons/action/credit-card';
+import CreditCard from 'material-ui/svg-icons/action/credit-card';
 import Assignment from 'material-ui/svg-icons/action/assignment';
 
-import cookie from 'react-cookie';
 import Dialog from 'material-ui/Dialog';
 import Calendar from '../components/calendar.js';
 import Loading from 'react-loading';
@@ -51,7 +49,7 @@ class ListHouse extends Component {
 
   componentWillMount() {
     this.props.fetchHouse()
-    this.state.user = JSON.parse(sessionStorage.getItem('user'))
+    this.setState({user:JSON.parse(sessionStorage.getItem('user'))})
 
   }
   prenotation() {
@@ -112,7 +110,7 @@ class ListHouse extends Component {
         <CardMedia
           overlay={<CardTitle title={list.title} onClick={ () => location.href='house/'+list.id} style={{cursor:'pointer'}} />}
           >
-          <img src={list.photo}/>
+          <img src={list.photo} role="presentation"/>
         </CardMedia>
         <CardTitle title={list.title} />
         <CardText>{list.description}</CardText>
@@ -127,12 +125,12 @@ class ListHouse extends Component {
       <CardMedia
         overlay={<CardTitle title={list.title} onClick={ () => location.href='house/'+list.id} style={{cursor:'pointer'}} />}
         >
-        <img src={list.photo}/>
+        <img src={list.photo} role="presentation"/>
       </CardMedia>
       <CardTitle title={list.title} />
       <CardText>{list.description}</CardText>
       <CardActions>
-        <FlatButton label="Prenota" icon={<Credit_Card />}  onClick= { () => this.handleOpen(list.id) } />
+        <FlatButton label="Prenota" icon={<CreditCard />}  onClick={ () => this.handleOpen(list.id) } />
       </CardActions>
     </Card>
     <br/>
@@ -145,14 +143,14 @@ class ListHouse extends Component {
       <CardMedia
         overlay={<CardTitle title={list.title} onClick={ () => location.href='house/'+list.id} style={{cursor:'pointer'}} />}
         >
-        <img src={list.photo}/>
+        <img src={list.photo} role="presentation"/>
       </CardMedia>
       <CardTitle title={list.title} />
       <CardText>{list.description}</CardText>
       <CardActions>
-        <FlatButton label="Modifica" icon={<Edit />}  onClick= { () => {this.showComponent(list.id, list.title, list.description)}} />
-        <FlatButton label="Elimina" icon={<Delete />} onClick= { () => {this.props.deletehouse(list.id); location.reload()} } />
-        <FlatButton label={"Gestione prenotazione"+ " " + Object.keys(list.reserved).length} icon={<Assignment />} onClick={ () => location.href='admin/'+list.id} />
+        <FlatButton label="Modifica" icon={<Edit />}  onClick={ () => {this.showComponent(list.id, list.title, list.description)}} />
+        <FlatButton label="Elimina" icon={<Delete />} onClick={ () => {this.props.deletehouse(list.id); location.reload()} } />
+        <FlatButton label={"Gestione prenotazione "+ Object.keys(list.reserved).length} icon={<Assignment />} onClick={ () => location.href='admin/'+list.id} />
 
       </CardActions>
     </Card>

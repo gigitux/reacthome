@@ -6,7 +6,7 @@ import * as Actions from '../actions/actions';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 /* google-maps stuff */
-import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+import { withGoogleMap, GoogleMap} from "react-google-maps";
 
 const GettingStartedGoogleMap = withGoogleMap(props => (
   <GoogleMap

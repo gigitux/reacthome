@@ -78,19 +78,18 @@ export default function list_house (state = initialState, action) {
     }
     case types.ADDCOMMENT_SUCCESS:
     location.reload();
+    break;
     case types.FETCHCOMMENT_SUCCESS:
     return {
       ...state,
       fetch_comments: action.payload
     }
     case types.ACCEPT_SUCCESS:
-    console.log("ggg")
     location.reload();
     return {
       ...state,
     };
     case types.REFUSE_SUCCESS:
-    console.log("bgg")
     location.reload();
     break;
     default:

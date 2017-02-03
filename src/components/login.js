@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import AddHouse from '../components/addhouse';
 import { connect } from 'react-redux';
 import * as Actions from '../actions/actions';
 import TextField from 'material-ui/TextField';
@@ -23,7 +21,6 @@ export class Login extends Component {
 
 handleSubmit (event) {
   const password_crypted = CryptoJS.SHA256(this.state.password)
-  const username_crypted = CryptoJS.SHA256(this.state.email.trim());
   const username = this.state.email.trim();
   const password = password_crypted.toString(CryptoJS.enc.Base64);
   console.log(username)

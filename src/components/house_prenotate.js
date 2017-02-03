@@ -1,13 +1,10 @@
 /* Import React Stuff */
 import React, {Component} from 'react';
 /*Import Material Stuff */
-import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import {Card, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 /*Import Redux Stuff */
 import { connect } from 'react-redux';
 import * as Actions from '../actions/actions';
-import Error404 from '../components/error404';
-import cookie from 'react-cookie';
 
 class House_prenotate extends Component {
   constructor(props){
@@ -18,7 +15,7 @@ class House_prenotate extends Component {
   };
 
   componentWillMount() {
-    this.state.user = JSON.parse(sessionStorage.getItem('user'))
+    this.setState({user:JSON.parse(sessionStorage.getItem('user'))})
     this.props.house_prenotate(this.state.user.email)
   }
   render() {
@@ -36,7 +33,7 @@ class House_prenotate extends Component {
         <CardMedia
           overlay={<CardTitle title={list.title} onClick={ () => location.href='house/'+list.id} style={{cursor:'pointer'}} />}
           >
-          <img src={list.photo}/>
+          <img src={list.photo} role="presentation" />
         </CardMedia>
         <CardTitle title={list.title} />
         <CardText>{list.description}</CardText>

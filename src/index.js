@@ -28,14 +28,14 @@ const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window
 
 const Routes = (props) => (
   <MuiThemeProvider>
-  <Router { ...props}>
-    <Route path="/" component={App} />
-    <Route path="/about" component={AddButton} />
-    <Route path="house/:id" component={House} />
-    <Route path="/house_prenotate" component={House_prenotate} />
-    <Route path="/admin/:id" component={Panel} />
-    <Route path="*" component={Error404} />
-  </Router>
+    <Router { ...props}>
+      <Route path="/" component={ListHouse} />
+      <Route path="/about" component={AddButton} />
+      <Route path="house/:id" component={House} />
+      <Route path="/house_prenotate" component={House_prenotate} />
+      <Route path="/admin/:id" component={Panel} />
+      <Route path="*" component={Error404} />
+    </Router>
   </MuiThemeProvider>
 );
 
@@ -52,13 +52,6 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('header')
 )
-
-/* Body */
-const App = () => (
-  <div>
-    <ListHouse />
-  </div>
-);
 
 
 ReactDOM.render(

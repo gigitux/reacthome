@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import AddHouse from '../components/addhouse';
 import { connect } from 'react-redux';
 import * as Actions from '../actions/actions';
 import TextField from 'material-ui/TextField';
 
-export class EditHouse extends React.Component {
+export class EditHouse extends Component {
   constructor(props){
     super(props);
     this.state = {

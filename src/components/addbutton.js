@@ -1,7 +1,5 @@
 /*React and Redux Stuff */
 import React from 'react';
-import { connect } from 'react-redux';
-import * as Actions from '../actions/actions';
 /*material-ui stuff */
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';

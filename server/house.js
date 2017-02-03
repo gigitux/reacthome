@@ -16,10 +16,13 @@ var HomeSchema   = new Schema({
     photo: String,
     reserved: [
       {
-      startDate: String,
-      endDate: String,
-      user: String,
-      flag: String
+        startDate: String,
+        endDate: String,
+        user: String,
+        flag: {
+          type: String,
+          default: "In attesa"
+        }
       }
     ],
     comments: [

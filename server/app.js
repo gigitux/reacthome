@@ -110,7 +110,7 @@ router.route('/prenotation')
     Home.findOne({id: req.body.id}, function(err, home) {
       if (err)
       res.send(err);
-      home.reserved.push({startDate:req.body.startDate, endDate: req.body.endDate, user: req.body.user} );
+      home.reserved.push({startDate:req.body.startDate, endDate: req.body.endDate, user: req.body.user, flag: "In attesa di conferma" } );
       home.save(function(err) {
         if (err)
         res.send(err);
@@ -223,7 +223,6 @@ router.route('/prenotation')
 
   router.route('/refuse')
     .put(function(req, res) {
-      console.log("ggg")
       res.setHeader('Access-Control-Allow-Origin', '*');
       Home.findOneAndUpdate({id: req.body.id, reserved: {$elemMatch: {user:req.body.user}}, reserved: {$elemMatch: {startDate:req.body.startDate}}, }, {'$set':{'reserved.$.flag': "Non Accettato"}}, function(err, home) {
         res.json("rifiutato");

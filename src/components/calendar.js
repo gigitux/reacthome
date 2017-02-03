@@ -31,14 +31,13 @@ class Calendar extends React.Component {
       for ( var i in find_house.reserved ){
         current_day = clonedate(find_house.reserved[i].startDate_moment)
         while (current_day.isBetween(find_house.reserved[i].startDate_moment, find_house.reserved[i].endDate_moment, null, '[]')) {
-          BAD_DATES.push(find_house.reserved[i].startDate_moment)
-          BAD_DATES.push(current_day)
+          BAD_DATES.push(find_house.reserved[i].startDate_moment);
+          BAD_DATES.push(current_day);
           current_day = clonedate(current_day.add(1, 'd'));
         }
         BAD_DATES.pop();
       }
       const isDayBlocked = day => BAD_DATES.filter(d => d.isSame(day, 'day')).length > 0;
-      const { focusedInput, startDate, endDate } = this.state;
       return (
         <div>
           <DateRangePicker
