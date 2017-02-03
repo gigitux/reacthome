@@ -6,31 +6,18 @@ import Done from 'material-ui/svg-icons/action/done';
 import Delete from 'material-ui/svg-icons/action/delete';
 import Loading from 'react-loading';
 
-
-
-
 class Panel extends Component {
   constructor(props) {
     super(props);
     this.state = {
       value: null
     }
-    this.handleChangeOption = this.handleChangeOption.bind(this);
   };
 
   componentWillMount() {
     this.setState({user:JSON.parse(sessionStorage.getItem('user'))})
     this.props.fetchoneHouse(this.props.params.id)
   };
-
-  handleChangeOption(event) {
-    this.setState({value: event.target.value});
-    console.log(this.state.value)
-    debugger
-  };
-
-
-
 
   render() {
     if (!this.state.user.role === "admin") {
@@ -86,6 +73,7 @@ class Panel extends Component {
         }
       ]
       const rows = this.props.house[0].reserved
+
 
       return (
         <div>

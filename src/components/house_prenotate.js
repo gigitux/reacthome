@@ -1,10 +1,14 @@
 /* Import React Stuff */
 import React, {Component} from 'react';
 /*Import Material Stuff */
-import {Card, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardMedia, CardTitle, CardText, CardActions} from 'material-ui/Card';
 /*Import Redux Stuff */
 import { connect } from 'react-redux';
 import * as Actions from '../actions/actions';
+import DateRange from 'material-ui/svg-icons/action/date-range';
+import FlatButton from 'material-ui/FlatButton';
+
+
 
 class House_prenotate extends Component {
   constructor(props){
@@ -15,8 +19,10 @@ class House_prenotate extends Component {
   };
 
   componentWillMount() {
-    this.setState({user:JSON.parse(sessionStorage.getItem('user'))})
+    this.state.user = JSON.parse(sessionStorage.getItem('user'))
+    this.setState({user: JSON.parse(sessionStorage.getItem('user'))})
     this.props.house_prenotate(this.state.user.email)
+    console.log(this.state)
   }
   render() {
     if (this.props.list == null) {

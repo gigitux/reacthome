@@ -100,8 +100,20 @@ router.route('/house/:id')
       res.send(err);
       res.json({ message: 'Casa aggiornata!' });
     });
+  })
+})
+
+  .delete(function(req, res) {
+    console.log("sto eliminando")
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    Home.remove({
+      id: req.params.id
+    }, function(err, home) {
+      if (err)
+      res.send(err);
+      res.json({ message: 'Casa eliminata' });
+    });
   });
-});
 
 router.route('/prenotation')
   .put(function(req, res) {
@@ -120,16 +132,6 @@ router.route('/prenotation')
   })
 
 
-.delete(function(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-    Home.remove({
-      id: req.params.id
-    }, function(err, bear) {
-        if (err)
-          res.send(err);
-          res.json({ message: 'Casa eliminata' });
-    });
-});
 
   router.route('/house_prenotate')
     .post(function(req, res) {

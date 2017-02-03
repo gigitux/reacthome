@@ -84,10 +84,14 @@ export function fetchoneHouse(id) {
 }
 
 export function deletehouse(id) {
+  console.log(id)
     return {
         [CALL_API]: {
             endpoint: 'http://localhost:9000/api/house/'+ id,
             method: 'DELETE',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+            }),
             types: [
                 types.DELETEHOUSE_REQUEST,
                 {

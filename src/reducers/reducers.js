@@ -91,6 +91,11 @@ export default function list_house (state = initialState, action) {
     };
     case types.REFUSE_SUCCESS:
     location.reload();
+    case types.DELETEHOUSE_REQUEST:
+    location.reload()
+    return {
+      ...state
+    }
     break;
     default:
     return state;

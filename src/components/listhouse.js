@@ -148,7 +148,7 @@ class ListHouse extends Component {
       <CardText>{list.description}</CardText>
       <CardActions>
         <FlatButton label="Modifica" icon={<Edit />}  onClick={ () => {this.showComponent(list.id, list.title, list.description)}} />
-        <FlatButton label="Elimina" icon={<Delete />} onClick={ () => {this.props.deletehouse(list.id); location.reload()} } />
+        <FlatButton label="Elimina" icon={<Delete />} onClick={ () => this.props.deletehouse(list.id) } />
         <FlatButton label={"Gestione prenotazione "+ Object.keys(list.reserved).length} icon={<Assignment />} onClick={ () => location.href='admin/'+list.id} />
 
       </CardActions>
