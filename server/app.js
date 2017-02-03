@@ -202,17 +202,33 @@ router.route('/prenotation')
     });
 
     router.route('/fetchcomment')
-    .post(function(req, res) {
-      console.log("sto prendendo i commenti")
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      Home.findOne({id: req.body.id}, function(err, home) {
-          if (err)
-            res.send(err);
-            res.json(home.comments);
-            console.log(home.comments)
-      });
+      .post(function(req, res) {
+        console.log("sto prendendo i commenti")
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        Home.findOne({id: req.body.id}, function(err, home) {
+            if (err)
+              res.send(err);
+              res.json(home.comments);
+              console.log(home.comments)
+        });
     });
 
+    router.route('/accept')
+      .put(function(req, res) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        Home.findOneAndUpdate({id: req.body.id, reserved: {$elemMatch: {user:req.body.user}}, reserved: {$elemMatch: {startDate:req.body.startDate}}, }, {'$set':{'reserved.$.flag': "Confermato"}}, function(err, home) {
+          res.json("accettato");
+    });
+  });
+
+  router.route('/refuse')
+    .put(function(req, res) {
+      console.log("ggg")
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      Home.findOneAndUpdate({id: req.body.id, reserved: {$elemMatch: {user:req.body.user}}, reserved: {$elemMatch: {startDate:req.body.startDate}}, }, {'$set':{'reserved.$.flag': "Non Accettato"}}, function(err, home) {
+        res.json("rifiutato");
+  });
+});
 
 
 module.exports = app;

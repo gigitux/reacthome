@@ -18,7 +18,8 @@ var HomeSchema   = new Schema({
       {
       startDate: String,
       endDate: String,
-      user: String
+      user: String,
+      flag: String
       }
     ],
     comments: [

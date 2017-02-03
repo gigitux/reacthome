@@ -3,34 +3,32 @@ import * as Table from 'reactabular-table';
 import style from 'reactabular-table'
 import { connect } from 'react-redux';
 import * as Actions from '../actions/actions';
+import Done from 'material-ui/svg-icons/action/done';
+import Delete from 'material-ui/svg-icons/action/delete';
 
-const schema = {
-  type: 'object',
-  properties: {
-    id: {
-      type: 'string'
-    },
-    name: {
-      type: 'string'
-    },
-    position: {
-      type: 'string'
-    },
-    salary: {
-      type: 'integer'
-    }
-  },
-  required: ['id', 'name', 'position', 'salary']
-};
+
 
 class Panel extends React.Component {
   constructor(props) {
     super(props);
-  }
+    this.state = {
+      value: null
+    }
+    this.handleChangeOption = this.handleChangeOption.bind(this);
+  };
 
   componentWillMount() {
     this.props.fetchoneHouse(this.props.params.id)
-  }
+  };
+
+  handleChangeOption(event) {
+    this.setState({value: event.target.value});
+    console.log(this.state.value)
+    debugger
+  };
+
+
+
 
   render() {
     console.log("sto nel pannello")
@@ -38,7 +36,6 @@ class Panel extends React.Component {
       return null
     }
     else {
-      console.log(this.props.house[0].reserved)
       const columns = [
         {
           property: 'startDate',
@@ -80,15 +77,18 @@ class Panel extends React.Component {
           }
         },
         {
-          header: {
-            label: 'Gestione case',
-            transforms: [
-              label => ({
-                onClick: () => alert(`clicked ${label}`)
-              })
+          cell: {
+            property: 'flag',
+            formatters: [
+              (value, { rowData }) => (
+                <div>
+                  <Done onClick={() => this.props.accept(this.props.house[0].id, rowData.user, rowData.startDate)} />
+                  <Delete onClick={() => this.props.refuse(this.props.house[0].id, rowData.user, rowData.startDate)}/>
+                </div>
+              )
             ]
           }
-        },
+        }
       ]
       const rows = this.props.house[0].reserved
 
@@ -99,7 +99,7 @@ class Panel extends React.Component {
           >
           <Table.Header />
 
-          <Table.Body rows={rows} rowKey="id" />
+          <Table.Body rows={rows} />
         </Table.Provider>
       );
     }
@@ -114,6 +114,12 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchoneHouse: (id) => {
       dispatch(Actions.fetchoneHouse(id))
+    },
+    accept: (id, user, startDate ) => {
+      dispatch(Actions.accept(id, user, startDate))
+    },
+    refuse: (id, user, startDate ) => {
+      dispatch(Actions.refuse(id, user, startDate))
     }
   }
 }

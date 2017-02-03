@@ -300,3 +300,55 @@ export function fetchcomments(id) {
         }
     }
 }
+
+export function accept(id, user, startDate) {
+  console.log(id, user, startDate)
+    return {
+        [CALL_API]: {
+            endpoint: 'http://localhost:9000/api/accept',
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                id: id,
+                user: user,
+                startDate: startDate
+            }),
+            types: [
+                types.ACCEPT_REQUEST,
+                {
+                    type: types.ACCEPT_SUCCESS,
+                    payload: (action, state, res) => {
+                        return res.json();
+                    }
+                },
+                'FAILURE'
+            ]
+        }
+    }
+}
+
+export function refuse(id, user, startDate) {
+  console.log(id, user, startDate)
+    return {
+        [CALL_API]: {
+            endpoint: 'http://localhost:9000/api/refuse',
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                id: id,
+                user: user,
+                startDate: startDate
+            }),
+            types: [
+                types.REFUSE_REQUEST,
+                {
+                    type: types.REFUSE_SUCCESS,
+                    payload: (action, state, res) => {
+                        return res.json();
+                    }
+                },
+                'FAILURE'
+            ]
+        }
+    }
+}
