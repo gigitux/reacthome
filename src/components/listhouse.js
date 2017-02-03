@@ -53,7 +53,6 @@ class ListHouse extends Component {
 
   }
   prenotation() {
-    console.log("prenotazione")
     this.props.prenotation(this.state.id_house,this.state.startDate,this.state.endDate, this.state.user.email)
   }
   handleOpen(id) {

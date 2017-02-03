@@ -19,6 +19,7 @@ class Panel extends Component {
   };
 
   componentWillMount() {
+    this.setState({user:JSON.parse(sessionStorage.getItem('user'))})
     this.props.fetchoneHouse(this.props.params.id)
   };
 
@@ -32,6 +33,13 @@ class Panel extends Component {
 
 
   render() {
+    if (!this.state.user.role === "admin") {
+      return (
+        <div>
+          Non hai i permessi giusti
+        </div>
+      )
+    }
     if (this.props.house == null) {
       return (
         <Loading type='balls' color='#00bcd4' />
