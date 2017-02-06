@@ -6,17 +6,8 @@ import * as Actions from '../actions/actions';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 /* google-maps stuff */
-import { withGoogleMap, GoogleMap} from "react-google-maps";
+import { withGoogleMap, GoogleMap, Marker} from "react-google-maps";
 
-const GettingStartedGoogleMap = withGoogleMap(props => (
-  <GoogleMap
-    ref={props.onMapLoad}
-    defaultZoom={6}
-    defaultCenter={{ lat: 41.87194, lng: 12.567379999999957 }}
-    onClick={props.onMapClick}
-  >
-  </GoogleMap>
-  ));
 class AddHouse extends React.Component {
 constructor(props) {
     super(props);
@@ -71,6 +62,20 @@ handleMapClick(event) {
   });
 };
   render() {
+    const GettingStartedGoogleMap = withGoogleMap(props => (
+      <GoogleMap
+      ref={props.onMapLoad}
+      defaultZoom={6}
+      defaultCenter={{ lat: 41.87194, lng: 12.567379999999957 }}
+      onClick={props.onMapClick}
+      >
+      <Marker
+      defaultPosition={{ lat: this.state.lat, lng: this.state.long }}
+      title="Click to zoom"
+      onClick={props.onMarkerClick}
+      />
+      </GoogleMap>
+    ));
     return (
       <div>
           <TextField

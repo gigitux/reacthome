@@ -1,14 +1,10 @@
 /* Import React Stuff */
 import React, {Component} from 'react';
 /*Import Material Stuff */
-import {Card, CardMedia, CardTitle, CardText, CardActions} from 'material-ui/Card';
+import {Card, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 /*Import Redux Stuff */
 import { connect } from 'react-redux';
 import * as Actions from '../actions/actions';
-import DateRange from 'material-ui/svg-icons/action/date-range';
-import FlatButton from 'material-ui/FlatButton';
-
-
 
 class House_prenotate extends Component {
   constructor(props){
